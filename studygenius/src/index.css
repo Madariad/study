@@ -3,3 +3,35 @@
   padding: 0;
   box-sizing: border-box;
 }
+html{
+  overflow-x: hidden;
+
+}
+
+
+
+/* Track */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff0000; /* Set the desired background color */
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff5555; /* Set the desired background color on hover */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the desired track background color */
+}
+
+/* Track on hover */
+::-webkit-scrollbar-track:hover {
+  background: #ddd; /* Set the desired track background color on hover */
+}

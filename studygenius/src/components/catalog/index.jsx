@@ -1,10 +1,10 @@
 import Typography from '@mui/material/Typography'
 // import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
-import InputSearch from "./inputSearch/index";
+import InputSearch from "./components/inputSearch/index";
 
-import Tab from "./tab/index";
-import Subject from "./subject/index"
+import Tab from "./components/tab/index";
+import Subject from "./components/subject/index"
 
 
 
@@ -39,9 +39,9 @@ function catalog() {
             <div className={classes.tab}>
                <Tab />
             </div>
-            <div className={classes.subject}>
+            {/* <div className={classes.subject}>
               <Subject />
-            </div>
+            </div> */}
         </>
     )
 }
