@@ -11,7 +11,7 @@ const lightTheme = createTheme({
         main: '#FFA500',
       },
       tableColor: {
-        main: '#40E0D0'
+        main: '#e5e5e5'
       },
       searchInputColor: {
         main: '#696969'
@@ -30,7 +30,7 @@ const lightTheme = createTheme({
         main: '#C71585',
       },
       tableColor: {
-        main: '#40E0D0'
+        main: '#464646'
       },
       searchInputColor: {
         main: '#9370DB'
