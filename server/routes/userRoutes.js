@@ -3,8 +3,11 @@ const router = express.Router();
 const  UserController = require('../controllers/UserController');
 
 
-//Создание нового пользователя
-router.post('/', UserController.create);
+//регестрация
+router.post('/', UserController.register);
+
+//вход
+router.post('/login', UserController.login);
 
 
 // Получение всех пользователей

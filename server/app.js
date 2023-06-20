@@ -1,6 +1,8 @@
 const express = require('express');
 const userRouter = require('./routes/userRoutes');
 
+const bodyParser = require('body-parser');
+
 //middleware
 const authenticateToken = require('./middleware/authenticateToken')
 
@@ -13,9 +15,10 @@ require('dotenv').config()
 
 const app = express()
 
-app.get('/', (req, res) => {
-    res.send('sdsdsd')
-})
+app.use(bodyParser.json());
+
+
+
 
 //middleware use
 

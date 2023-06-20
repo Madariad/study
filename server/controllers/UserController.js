@@ -3,18 +3,44 @@ const User = require('../models/User');
 // const User = new user();
 
 const UserController = {
-  create(req, res) {
+  register(req, res) {
     const user = req.body;
 
-    User.create(user, (result) => {
-        if (result) {
-            res.json({status: 'succes'});
+    User.register(user, (result) => {
+        if (result.status === 'success') {
+          const op = result.token ? [{status: result.status, message: result.message, token: result.token}] : [{status: result.status, message: result.message}]
+          res.status(result.statusCode)
+          res.json(op)
             
         }else {
-            console.log('llll');
+            res.status(result.statusCode)
+            res.json(
+              {status: result.status, 
+               message: result.message
+              })
         }
     });
   },
+  login(req, res){
+    const user = req.body;
+
+
+    User.login(user, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message, token: result.token})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
+  });
+
+  },
+
   getAll(req, res) {
     User.getAll((users) => {
       res.json(users);
