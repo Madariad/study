@@ -120,7 +120,7 @@ async  login(credentails, callback) {
       const {email, password} = credentails;
 
   
-      const getUserSql = 'SELECT * FROM students WHERE email = ?';
+      const getUserSql = 'SELECT * FROM users WHERE email = ?';
       const user = await query(getUserSql, [email]);
   
       if (user.length === 0) {
@@ -133,24 +133,105 @@ async  login(credentails, callback) {
       if (passwordMatch) {
         const token = jwt.sign({ email: user[0].email }, secretKey);
 
-        const checkfortheexistenceofatoken = 'SELECT token FROM tokens WHERE ?'
+        const checkfortheexistenceofatoken = 'DELETE FROM tokens WHERE user_id = ?'
 
-        const tokenRes = await query(checkfortheexistenceofatoken, [token])
+         await query(checkfortheexistenceofatoken, [user[0].user_id])
 
-        console.log(tokenRes);
-  
-        // const insertTokenSql = 'INSERT INTO tokens (token, user_id) VALUES (?, ?)';
-        // await query(insertTokenSql, [token]);
-  
-        // res.json({ token: token });
+
+        const insertTokenSql = 'INSERT INTO tokens (token, user_id) VALUES (?, ?)';
+        await query(insertTokenSql, [token, user[0].user_id]);
+        
+        callback(
+          {
+            status: 'success',
+            message: 'login completed successfully',
+            statusCode: 200,
+            token: token
+          })
       } else {
-        res.status(401).json({ error: 'Invalid credentials' });
+
+        callback(
+          {
+            status: 'error',
+            message: 'Invalid credentials',
+            statusCode: 401,
+          })
       }
     } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: 'Failed to retrieve user',
+          statusCode: 500,
+        })
       console.error('Error retrieving user:', error);
-      res.status(500).json({ error: 'Failed to retrieve user' });
     }
   },
+
+
+
+
+
+
+
+  async  logout(token, callback) {
+    try {
+
+
+
+
+
+      const tokens = token.split('Bearer ')[1];
+
+
+      // jwt.verify(tokens, secretKey, (err, decodedToken) => {
+      //   if (err) {
+      //     // console.log('JSDFVJBSLDJKBgvlSKJB');
+      //     console.log(err);
+          
+      //   } else {
+      //     console.log(7676598798);
+          
+      //     console.log(decodedToken);
+      //     // const username = decodedToken.username;
+
+
+
+
+          
+      //   }
+      // });
+      
+            //  const tyt = 'SELECT user_id, token FROM tokens WHERE token = ?'
+            //  const rest =  await query(tyt, [tokens]);
+            //  console.log(await rest);
+
+            const removeTokenSql = 'DELETE FROM tokens WHERE token = ?';
+            await query(removeTokenSql, [tokens]);
+
+
+
+
+
+  
+      callback({
+        status: 'success',
+        message: 'Logged out successfully', 
+        statusCode: 201,
+      });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      callback(
+        {
+          status: 'erorr',
+          message: 'Failed to log out',
+          statusCode: 500,
+        })
+    }
+  },
+
+
+
 
 
 

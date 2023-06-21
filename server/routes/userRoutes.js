@@ -9,6 +9,9 @@ router.post('/', UserController.register);
 //вход
 router.post('/login', UserController.login);
 
+//выход
+router.post('/logout', UserController.logout);
+
 
 // Получение всех пользователей
 router.get('/', UserController.getAll);

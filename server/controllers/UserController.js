@@ -38,7 +38,27 @@ const UserController = {
             })
       }
   });
+  },
+  logout(req, res){
 
+    const token = req.headers.authorization;
+  
+
+
+
+    User.logout(token, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
+  });
   },
 
   getAll(req, res) {
