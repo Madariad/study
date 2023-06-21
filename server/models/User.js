@@ -252,6 +252,10 @@ async  login(credentails, callback) {
   },
 
   //в разработке не трогать
+  //нужно добавить логику зброса пороля думаю проверка на подлиность должен до этой функций а именно в middleware
+
+  //если пользователь меняеть email в током случае нужно удалить существуеший токен и создать новый на основе нового email и занова отправить на клиенит чтобы дальнейшим клент мог отправить активный токен в запросе
+
 async  update(userId, updatedUser, callback) {
    const {email, username, password, role_name} = updatedUser;
 
@@ -263,22 +267,22 @@ async  update(userId, updatedUser, callback) {
     
   // }
 
-            //проверка роля
-            const sql = "SELECT role_id FROM roles WHERE role_name = ?"
-            const resul = await query(sql, [role_name]) 
+//проверка роля
+  const sql = "SELECT role_id FROM roles WHERE role_name = ?"
+  const resul = await query(sql, [role_name]) 
   
   
       
-                if (resul.length === 0) {
-                  callback({
-                    status: 'error',
-                    message: 'No such role',
-                    statusCode: 409
-                  });
-                  return
-                } 
+  if (resul.length === 0) {
+    callback({
+      status: 'error',
+      message: 'No such role',
+      statusCode: 409
+    });
+    return
+  } 
   
-                const roleId = resul[0].role_id;
+     const roleId = resul[0].role_id;
 
    const hashedPassword = await bcrypt.hash(password, 10);
    
@@ -293,8 +297,26 @@ async  update(userId, updatedUser, callback) {
     callback(result);
   },
 async  delete(userId, callback) {
-    const deleteQuery = 'DELETE FROM users WHERE user_id = ?';
-    const result = await query(deleteQuery, [userId])
+    try {
+        const sql = 'SELECT token FROM tokens WHERE user_id = ?';
+        const selectTokenSql = await query(sql, [userId])
+        await query('DELETE FROM tokens WHERE token = ?', [selectTokenSql[0].token])
+        const deleteQuery = 'DELETE FROM users WHERE user_id = ?';
+        await query(deleteQuery, [userId])
+        callback(
+          {
+            status: 'success',
+            message: 'user delete',
+            statusCode: 201
+          })
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500
+        })
+    }
     callback(result);
 }
 }

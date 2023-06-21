@@ -1,11 +1,23 @@
-const Course = require('../models/course');
+const Course = require('../models/Course');
 
 const courseController = {
   createCourse(req, res) {
     const course = req.body;
+    const token = req.headers.authorization;
+    const tokens = token.split('Bearer ')[1];
 
-    Course.create(course, (result) => {
-      res.status(200).json(result);
+    Course.create(course, tokens, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
   getAllCourses(req, res) {

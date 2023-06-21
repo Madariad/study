@@ -1,21 +1,71 @@
 const pool = require('../utils/db');
 
-const Course = {
-  create(course, callback) {
-    const query = 'INSERT INTO Courses SET ?';
+const jwtHelpers = require('../utils/jwt')
 
+function query(sql, values) {
+  return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       if (err) {
-        console.log(err);
+        reject(err);
         return;
       }
 
-      connection.query(query, course, (err, result) => {
-        connection.release();
-        if (err) throw err;
-        callback(result);
+      connection.query(sql, values, (error, results) => {
+        connection.release(); 
+
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(results);
       });
     });
+  });
+}
+
+
+const Course = {
+ async  create(course, token,  callback) {
+   try {
+      const getRole = await jwtHelpers.getUserRole(token);
+         if (getRole[0].role_name === 'teachers') {
+            console.log('success');
+         }else {
+          callback(
+            {
+              status: 'error',
+              message: 'Only teachers can create courses.',
+              statusCode: 401,
+            });
+         }
+          const userId = await jwtHelpers.getUserId(token)
+         console.log(userId[0].user_id);
+
+        const InsertQuery = 'INSERT INTO Courses SET ?';
+
+        const newCourse = 
+        {
+          ...course,
+          course_creator_id: userId[0].user_id
+
+        }
+        await query(InsertQuery, [newCourse])
+        callback(
+          {
+            status: 'success',
+            message: 'created course',
+            statusCode: 201,
+          });
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    }
+    
   },
   getAll(callback) {
     const query = 'SELECT * FROM Courses';
