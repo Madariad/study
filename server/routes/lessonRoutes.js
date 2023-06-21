@@ -4,18 +4,18 @@ const lessonController = require('../controllers/LessonController');
 const router = express.Router();
 
 // Создание нового урока
-router.post('/lessons/', lessonController.createLesson);
+router.post('/', lessonController.createLesson);
 
 // Получение всех уроков
-router.get('/lessons/', lessonController.getAllLessons);
+router.get('/', lessonController.getAllLessons);
 
 // Получение урока по идентификатору
-router.get('/lessons/:id', lessonController.getLessonById);
+router.get('/:id', lessonController.getLessonById);
 
 // Обновление урока
-router.put('/lessons/:id', lessonController.updateLesson);
+router.put('/:id', lessonController.updateLesson);
 
 // Удаление урока
-router.delete('/lessons/:id', lessonController.deleteLesson);
+router.delete('/:id', lessonController.deleteLesson);
 
 module.exports = router;

@@ -4,18 +4,18 @@ const courseController = require('../controllers/CourseController');
 const router = express.Router();
 
 // Создание курса
-router.post('/courses', courseController.createCourse);
+router.post('/', courseController.createCourse);
 
 // Получение всех курсов
-router.get('/courses', courseController.getAllCourses);
+router.get('/', courseController.getAllCourses);
 
 // Получение курса по идентификатору
-router.get('/courses/:id', courseController.getCourseById);
+router.get('/:id', courseController.getCourseById);
 
 // Обновление курса
-router.put('/courses/:id', courseController.updateCourse);
+router.put('/:id', courseController.updateCourse);
 
 // Удаление курса
-router.delete('/courses/:id', courseController.deleteCourse);
+router.delete('/:id', courseController.deleteCourse);
 
 module.exports = router;

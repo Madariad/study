@@ -250,6 +250,8 @@ async  login(credentails, callback) {
     callback(result)
    
   },
+
+  //в разработке не трогать
 async  update(userId, updatedUser, callback) {
     const updateQuery = 'UPDATE users SET ? WHERE user_id = ?';
     const result = await query(updateQuery, [updatedUser, userId])
