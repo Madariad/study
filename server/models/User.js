@@ -253,8 +253,43 @@ async  login(credentails, callback) {
 
   //в разработке не трогать
 async  update(userId, updatedUser, callback) {
+   const {email, username, password, role_name} = updatedUser;
+
+  //  const getUserId = 'SELECT email FROM users WHERE user_id = ?'
+
+  // const user =  await query(getUserId, userId)
+
+  // if (user[0].email === ) {
+    
+  // }
+
+            //проверка роля
+            const sql = "SELECT role_id FROM roles WHERE role_name = ?"
+            const resul = await query(sql, [role_name]) 
+  
+  
+      
+                if (resul.length === 0) {
+                  callback({
+                    status: 'error',
+                    message: 'No such role',
+                    statusCode: 409
+                  });
+                  return
+                } 
+  
+                const roleId = resul[0].role_id;
+
+   const hashedPassword = await bcrypt.hash(password, 10);
+   
+   const updateUser = {
+    email: email,
+    username: username,
+    password: hashedPassword,
+    role_id: roleId
+   }
     const updateQuery = 'UPDATE users SET ? WHERE user_id = ?';
-    const result = await query(updateQuery, [updatedUser, userId])
+    const result = await query(updateQuery, [updateUser, userId])
     callback(result);
   },
 async  delete(userId, callback) {
