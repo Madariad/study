@@ -1,22 +1,60 @@
 const pool = require('../utils/db');
 const query = require('../utils/query');
+const jwtHelpers = require('../utils/jwt')
 
 const Lesson = {
-  create(lesson, callback) {
-    const query = 'INSERT INTO Lessons SET ?';
+  async create(lesson, courseId, token, callback) {
+    // const query = 'INSERT INTO Lessons SET ?';
+    try {
+      const getRole = await jwtHelpers.getUserRole(token);
+         if (getRole[0].role_name === 'teachers') {
+                const userId = await jwtHelpers.getUserId(token)
+                console.log(userId[0].user_id);
+      
+              const InsertQuery = 'INSERT INTO Lessons SET ?';
+      
+              const newLesson = 
+              {
+                ...lesson,
+                course_id: courseId
+              }
+              console.log(await query(InsertQuery, [newLesson]))
+              callback(
+                {
+                  status: 'success',
+                  message: 'created course',
+                  statusCode: 201,
+                });
+                  
+         }else {
+          callback(
+            {
+              status: 'error',
+              message: 'Only owner can create lessons.',
+              statusCode: 401,
+            });
+         }
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    }
 
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    // pool.getConnection((err, connection) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
 
-      connection.query(query, lesson, (err, result) => {
-        connection.release();
-        if (err) throw err;
-        callback(result);
-      });
-    });
+    //   connection.query(query, lesson, (err, result) => {
+    //     connection.release();
+    //     if (err) throw err;
+    //     callback(result);
+    //   });
+    // });
   },
   getAll(callback) {
     const query = 'SELECT * FROM Lessons';

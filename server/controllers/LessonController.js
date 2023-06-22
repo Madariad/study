@@ -3,8 +3,12 @@ const Lesson = require('../models/Lesson');
 const lessonController = {
   createLesson(req, res) {
     const lesson = req.body;
+    const courseId = req.body.course_id
+    console.log(lesson)
+    const token = req.headers.authorization
+    const tokens = token.split('Bearer ')[1];
 
-    Lesson.create(lesson, (result) => {
+    Lesson.create(lesson, courseId, tokens, (result) => {
       res.json(result);
     });
   },
