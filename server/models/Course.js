@@ -48,6 +48,27 @@ const Course = {
     }
     
   },
+  async getLessons(courseId, callback){
+    try {
+      console.log('ddddd');
+      const getLessonsFromCourseSql = 'SELECT * FROM courses LEFT JOIN lessons ON lessons.course_id = courses.course_id WHERE courses.course_id = ?';
+    const results = await query(getLessonsFromCourseSql, [courseId]);
+    callback(
+      {
+        status: 'success',
+        message: 'All lessons from this course',
+        lessons: results,
+        statusCode: 200,
+      })
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    }
+  },
 async  getAll(callback) {
    try {
     const coursesAllQuery = 'SELECT * FROM Courses';

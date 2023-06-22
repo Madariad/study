@@ -9,6 +9,9 @@ router.post('/create', courseController.createCourse);
 // Получение всех курсов
 router.get('/', courseController.getAllCourses);
 
+// Получение всех уроков у курса
+router.get('/:courseId/lessons', courseController.getLessonsFromCourse);
+
 // Получение курса по идентификатору
 router.get('/:id', courseController.getCourseById);
 

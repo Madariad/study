@@ -20,6 +20,25 @@ const courseController = {
       }
     });
   },
+  getLessonsFromCourse(req, res){
+    const courseId = req.params.courseId;
+      Course.getLessons(courseId, (results) => {
+        if (results.status === 'success') {
+          res.status(results.statusCode)
+          res.json({status: results.status, 
+            message: results.message,
+            lessons: results.lessons
+          })
+            
+        }else {
+            res.status(results.statusCode)
+            res.json(
+              {status: results.status, 
+               message: results.message
+              })
+        }
+      })
+  },
   getAllCourses(req, res) {
     Course.getAll((results) => {
       if (results.status === 'success') {

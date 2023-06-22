@@ -9,6 +9,9 @@ router.post('/', lessonController.createLesson);
 // Получение всех уроков
 router.get('/', lessonController.getAllLessons);
 
+// Получение всех подуроков у урока
+router.get('/:lessonId/sublessons', lessonController.getSublessonsInLesson);
+
 // Получение урока по идентификатору
 router.get('/:id', lessonController.getLessonById);
 

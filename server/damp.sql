@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 21 2023 г., 22:34
+-- Время создания: Июн 22 2023 г., 20:41
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -63,11 +63,9 @@ CREATE TABLE `lessons` (
 --
 
 INSERT INTO `lessons` (`lesson_id`, `course_id`, `lesson_title`, `lesson_content`) VALUES
-(1, 1, 'Introduction to React', 'In this lesson, we will introduce the basics of React framework.'),
-(2, 1, 'Components and Props', 'Learn about components and props in React and how to use them.'),
-(3, 1, 'State and Lifecycle', 'Explore the concept of state and lifecycle methods in React.'),
-(4, 1, 'Handling Events', 'Learn how to handle events in React and write event handlers.'),
-(5, 1, 'React Router', 'Discover how to set up routing in React applications using React Router.');
+(1, 1, 'Урок 1', 'Содержимое урока 1'),
+(2, 1, 'Урок 2', 'Содержимое урока 2'),
+(3, 2, 'Урок 3', 'Содержимое урока 3');
 
 -- --------------------------------------------------------
 
@@ -88,6 +86,30 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 (1, 'students'),
 (2, 'teachers'),
 (3, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sublessons`
+--
+
+CREATE TABLE `sublessons` (
+  `sublesson_id` int NOT NULL,
+  `lesson_id` int DEFAULT NULL,
+  `sublesson_title` varchar(255) DEFAULT NULL,
+  `sublesson_content` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `sublessons`
+--
+
+INSERT INTO `sublessons` (`sublesson_id`, `lesson_id`, `sublesson_title`, `sublesson_content`) VALUES
+(1, 1, 'Подурок 1.1', 'Содержимое подурока 1.1'),
+(2, 1, 'Подурок 1.2', 'Содержимое подурока 1.2'),
+(3, 2, 'Подурок 2.1', 'Содержимое подурока 2.1'),
+(4, 3, 'Подурок 3.1', 'Содержимое подурока 3.1'),
+(5, 3, 'Подурок 3.2', 'Содержимое подурока 3.2');
 
 -- --------------------------------------------------------
 
@@ -169,6 +191,13 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Индексы таблицы `sublessons`
+--
+ALTER TABLE `sublessons`
+  ADD PRIMARY KEY (`sublesson_id`),
+  ADD KEY `lesson_id` (`lesson_id`);
+
+--
 -- Индексы таблицы `tokens`
 --
 ALTER TABLE `tokens`
@@ -195,7 +224,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT для таблицы `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `lesson_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `lesson_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT для таблицы `sublessons`
+--
+ALTER TABLE `sublessons`
+  MODIFY `sublesson_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -218,6 +253,12 @@ ALTER TABLE `courses`
 --
 ALTER TABLE `lessons`
   ADD CONSTRAINT `lessons_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+--
+-- Ограничения внешнего ключа таблицы `sublessons`
+--
+ALTER TABLE `sublessons`
+  ADD CONSTRAINT `sublessons_ibfk_1` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`);
 
 --
 -- Ограничения внешнего ключа таблицы `tokens`

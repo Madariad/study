@@ -12,10 +12,44 @@ const lessonController = {
       res.json(result);
     });
   },
+  getSublessonsInLesson(req, res){
+    const lessonId = req.params.lessonId
+    Lesson.getSublessons(lessonId, (results) => {
+      if (results.status === 'success') {
+        res.status(results.statusCode)
+        res.json({status: results.status, 
+          message: results.message,
+          sublessons: results.sublessons
+        })
+          
+      }else {
+          res.status(results.statusCode)
+          res.json(
+            {status: results.status, 
+             message: results.message
+            })
+      }
+    })
+  },
 
   getAllLessons(req, res) {
     Lesson.getAll((results) => {
-      res.json(results);
+      if (results.status === 'success') {
+        res.status(results.statusCode)
+        res.json(
+        {
+         status: results.status, 
+         message: results.message,
+         lessons: results.lessons,
+        })
+          
+      }else {
+          res.status(results.statusCode)
+          res.json(
+            {status: results.status, 
+             message: results.message
+            })
+      }
     });
   },
 
@@ -23,10 +57,21 @@ const lessonController = {
     const lessonId = req.params.id;
 
     Lesson.getById(lessonId, (result) => {
-      if (result.length === 0) {
-        res.status(404).json({ message: 'Lesson not found' });
-      } else {
-        res.json(result[0]);
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+         lesson: result.lesson,
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
       }
     });
   },
@@ -59,7 +104,21 @@ const lessonController = {
     const lessonId = req.params.id;
 
     Lesson.delete(lessonId, (result) => {
-      res.json(result);
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
 };

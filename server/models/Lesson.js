@@ -8,8 +8,8 @@ const Lesson = {
     try {
       const getRole = await jwtHelpers.getUserRole(token);
          if (getRole[0].role_name === 'teachers') {
-                const userId = await jwtHelpers.getUserId(token)
-                console.log(userId[0].user_id);
+
+
                 
                 // доработать проверку на автора
               // const getLesson = 'SELECT course_creator_id FROM lessons LEFT JOIN courses ON courses.course_id = lessons.course_id WHERE lesson_id = ?'
@@ -46,50 +46,72 @@ const Lesson = {
         });
     }
 
-    // pool.getConnection((err, connection) => {
-    //   if (err) {
-    //     console.log(err);
-    //     return;
-    //   }
-
-    //   connection.query(query, lesson, (err, result) => {
-    //     connection.release();
-    //     if (err) throw err;
-    //     callback(result);
-    //   });
-    // });
   },
-  getAll(callback) {
-    const query = 'SELECT * FROM Lessons';
+async  getSublessons(lessonId, callback){
+  try {
+    const getSublessonsSql = 'SELECT * FROM lessons LEFT JOIN sublessons ON sublessons.lesson_id = lessons.lesson_id WHERE lessons.lesson_id = ?';
 
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    const results = await query(getSublessonsSql, [lessonId])
 
-      connection.query(query, (err, results) => {
-        connection.release();
-        if (err) throw err;
-        callback(results);
+    callback(
+      {
+        status: 'success',
+        message: 'All sublessons from this lesson',
+        sublessons: results,
+        statusCode: 200,
+      })
+  } catch (error) {
+    callback(
+      {
+        status: 'error',
+        message: error,
+        statusCode: 500,
       });
-    });
+  }
+
+},
+async  getAll(callback) {
+   try {
+    const getAllQuery = 'SELECT * FROM Lessons';
+    const results = await query(getAllQuery)
+    callback(
+      {
+        status: 'success',
+        message: 'get by lesson success',
+        lessons: results,
+        statusCode: 200,
+      })
+   } catch (error) {
+    callback(
+      {
+        status: 'error',
+        message: error,
+        statusCode: 500,
+      });
+   }
+
+   
+   
   },
-  getById(lessonId, callback) {
-    const query = 'SELECT * FROM Lessons WHERE lesson_id = ?';
-
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      connection.query(query, [lessonId], (err, result) => {
-        connection.release();
-        if (err) throw err;
-        callback(result);
-      });
-    });
+async  getById(lessonId, callback) {
+    try {
+      const getByIdquery = 'SELECT * FROM Lessons WHERE lesson_id = ?';
+    const results = await query(getByIdquery, [lessonId])
+    callback(
+      {
+        status: 'success',
+        message: 'get by lesson success',
+        lesson: results,
+        statusCode: 200,
+      })
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    }
   },
   async  update(lessonId, updatedLesson, token, callback) {
   
@@ -103,7 +125,7 @@ const Lesson = {
             if (resul.length === 0) {
               callback({
                 status: 'error',
-                message: 'No such corse',
+                message: 'No such lesson',
                 statusCode: 409
               });
               return
@@ -138,21 +160,26 @@ const Lesson = {
           });
       }
     },
-  delete(lessonId, callback) {
-    const query = 'DELETE FROM Lessons WHERE lesson_id = ?';
-
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      connection.query(query, [lessonId], (err, result) => {
-        connection.release();
-        if (err) throw err;
-        callback(result);
-      });
-    });
+async  delete(lessonId, callback) {
+    try {
+      const deleteQuery = 'DELETE FROM Lessons WHERE lesson_id = ?';
+    await query(deleteQuery, [lessonId])
+    callback(
+      {
+        status: 'success',
+        message: 'lesson deleted successfully',
+        statusCode: 200,
+      })
+    } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    }
+   
+   
   },
 };
 
