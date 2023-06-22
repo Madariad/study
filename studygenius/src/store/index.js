@@ -1,14 +1,17 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
+import courseSaga from "./course/courseSaga";
 
 import themeSlice from "./theme/themeSlice";
+import courseSlice from "./course/coursSlice";
 
 const sagaMiddleware = createSagaMiddleware()
 
 
 
 const rootReducer = combineReducers({
-     theme: themeSlice,    
+     theme: themeSlice,
+     course: courseSlice,   
 });
 
 const store = configureStore({
@@ -19,4 +22,4 @@ const store = configureStore({
 
 
 export default store;
-// sagaMiddleware.run(postsSaga);
+sagaMiddleware.run(courseSaga);

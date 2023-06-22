@@ -6,6 +6,12 @@ import Select from "./components/select/index";
 import Checkbox from "./components/checkbox/index";
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
+
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux"
+
+
 const useStyles = makeStyles((theme) => ({
   search: {
     width: '100%',
@@ -29,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Catalog() {
+  const dispath = useDispatch()
+  useEffect(() => {
+    function getPosts() {
+      dispath({type: 'GET_COURSE'})
+    }
+    getPosts()
+  }, [])
   const classes = useStyles();
 
   return (
