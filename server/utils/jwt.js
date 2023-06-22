@@ -1,31 +1,9 @@
 const jwt = require('jsonwebtoken');
-const pool = require('../utils/db');
+const query = require('./query')
 
 //секретный ключ токена
 const secretKey = 'cZ#tT{m$g2M+LB8&9b6m7{DnQR@fThyJ';
 
-//нужно сделать hellper для этого
-function query(sql, values) {
-    return new Promise((resolve, reject) => {
-      pool.getConnection((err, connection) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-  
-        connection.query(sql, values, (error, results) => {
-          connection.release(); 
-  
-          if (error) {
-            reject(error);
-            return;
-          }
-  
-          resolve(results);
-        });
-      });
-    });
-  }
 
 
 function helper(token) {
