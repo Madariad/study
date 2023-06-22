@@ -46,13 +46,18 @@ const jwtHelpers = {
           const res = await query(sql, [userEmail]);
           return res
           
-          // Дополнительная обработка результата запроса
-        //   console.log(res);
           
         } catch (error) {
           // Обработка ошибок
           console.log(error);
         }
+      },
+      async getUserData(token){
+        const userEmail = await helper(token);
+
+         const sql = 'SELECT * FROM users LEFT JOIN tokens ON tokens.user_id = users.user_id LEFT JOIN courses ON courses.course_creator_id  = users.user_id WHERE email = ?';
+         const res = await query(sql, [userEmail]);
+         return res
       }
 }
   

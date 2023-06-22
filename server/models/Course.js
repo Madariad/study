@@ -92,17 +92,44 @@ async  getById(courseId, callback) {
     }
    
   },
-async  update(courseId, updatedCourse, callback) {
-    try {
-      const updateQuery = 'UPDATE Courses SET ? WHERE course_id = ?';
-      await query(updateQuery, [updatedCourse, courseId])
-      console.log();
-      callback(
-        {
-          status: 'success',
-          message: 'course updated',
-          statusCode: 201,
-        })
+async  update(courseId, updatedCourse, token, callback) {
+  
+  try {
+      const tokens = token.split('Bearer ')[1];
+        const userData = await jwtHelpers.getUserData(tokens);
+
+
+      const getCourse = 'SELECT course_creator_id FROM courses WHERE course_id = ?';
+      const resul = await query(getCourse, [courseId])
+                    
+          if (resul.length === 0) {
+            callback({
+              status: 'error',
+              message: 'No such corse',
+              statusCode: 409
+            });
+            return
+          } 
+          if (resul[0].course_creator_id === userData[0].user_id) {
+           
+            const updateQuery = 'UPDATE Courses SET ? WHERE course_id = ?';
+            await query(updateQuery, [updatedCourse, courseId])
+
+            
+                  callback(
+                    {
+                      status: 'success',
+                      message: 'course updated',
+                      statusCode: 201,
+                    })
+          }else {
+            callback(
+              {
+                status: 'erorr',
+                message: 'course updated only author',
+                statusCode: 401,
+              })
+          }
     } catch (error) {
       console.log(error);
       callback(
@@ -113,21 +140,57 @@ async  update(courseId, updatedCourse, callback) {
         });
     }
   },
-  delete(courseId, callback) {
-    const query = 'DELETE FROM Courses WHERE course_id = ?';
+async  delete(courseId, token, callback) {
+    try {
+      const tokens = token.split('Bearer ')[1];
+      const userData = await jwtHelpers.getUserData(tokens);
+      
+      const getCourse = 'SELECT course_creator_id FROM courses WHERE course_id = ?';
+      const resul = await query(getCourse, [courseId])
+                    
+          if (resul.length === 0) {
+            callback({
+              status: 'error',
+              message: 'No such corse',
+              statusCode: 409
+            });
+            return
+          } 
+          if (resul[0].course_creator_id === userData[0].user_id) {
+            const deleteQuery = 'DELETE FROM Courses WHERE course_id = ?';
 
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
 
-      connection.query(query, [courseId], (err, result) => {
-        connection.release();
-        if (err) throw err;
-        callback(result);
-      });
-    });
+           const res =  await query(deleteQuery, [courseId])
+           console.log(res);
+
+            callback(
+              {
+                status: 'success',
+                message: 'Course deleted successfully',
+                statusCode: 201
+              })
+          }else {
+            callback(
+              {
+                status: 'erorr',
+                message: 'course updated only author',
+                statusCode: 401,
+              })
+          }
+
+
+    } catch (error) {
+      console.log(error);
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        });
+    
+    }
+
+   
   },
 };
 

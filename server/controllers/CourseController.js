@@ -63,8 +63,9 @@ const courseController = {
   updateCourse(req, res) {
     const courseId = req.params.id;
     const updatedCourse = req.body;
+    const token = req.headers.authorization;
 
-    Course.update(courseId, updatedCourse, (result) => {
+    Course.update(courseId, updatedCourse,token, (result) => {
       if (result.status === 'success') {
         res.status(result.statusCode)
         res.json(
@@ -84,12 +85,23 @@ const courseController = {
   },
   deleteCourse(req, res) {
     const courseId = req.params.id;
+    const token = req.headers.authorization;
 
-    Course.delete(courseId, (result) => {
-      if (result.affectedRows === 0) {
-        res.status(404).json({ error: 'Course not found' });
-      } else {
-        res.status(200).json({ message: 'Course deleted successfully' });
+    Course.delete(courseId, token, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
       }
     });
   },

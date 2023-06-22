@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const pool = require('../utils/db');
-const query = require('../utils/query')
+const query = require('../utils/query');
 
      
 
