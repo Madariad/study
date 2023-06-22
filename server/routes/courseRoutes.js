@@ -4,7 +4,7 @@ const courseController = require('../controllers/CourseController');
 const router = express.Router();
 
 // Создание курса
-router.post('/', courseController.createCourse);
+router.post('/create', courseController.createCourse);
 
 // Получение всех курсов
 router.get('/', courseController.getAllCourses);

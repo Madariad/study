@@ -22,17 +22,41 @@ const courseController = {
   },
   getAllCourses(req, res) {
     Course.getAll((results) => {
-      res.status(200).json(results);
+      if (results.status === 'success') {
+        res.status(results.statusCode)
+        res.json({status: results.status, 
+          message: results.message,
+         courses: results.courses
+        })
+          
+      }else {
+          res.status(results.statusCode)
+          res.json(
+            {status: results.status, 
+             message: results.message
+            })
+      }
     });
   },
   getCourseById(req, res) {
     const courseId = req.params.id;
 
     Course.getById(courseId, (result) => {
-      if (result.length === 0) {
-        res.status(404).json({ error: 'Course not found' });
-      } else {
-        res.status(200).json(result[0]);
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+         course: result.course
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
       }
     });
   },
@@ -41,10 +65,20 @@ const courseController = {
     const updatedCourse = req.body;
 
     Course.update(courseId, updatedCourse, (result) => {
-      if (result.affectedRows === 0) {
-        res.status(404).json({ error: 'Course not found' });
-      } else {
-        res.status(200).json({ message: 'Course updated successfully' });
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
       }
     });
   },

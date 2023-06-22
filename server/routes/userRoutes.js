@@ -4,7 +4,7 @@ const  UserController = require('../controllers/UserController');
 
 
 //регестрация
-router.post('/', UserController.register);
+router.post('/register', UserController.register);
 
 //вход
 router.post('/login', UserController.login);

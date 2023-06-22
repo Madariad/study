@@ -1,4 +1,5 @@
 const pool = require('../utils/db');
+const query = require('../utils/query');
 
 const Lesson = {
   create(lesson, callback) {

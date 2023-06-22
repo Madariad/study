@@ -1,28 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('../utils/db');
-
-function query(sql, values) {
-  return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      connection.query(sql, values, (error, results) => {
-        connection.release(); 
-
-        if (error) {
-          reject(error);
-          return;
-        }
-
-        resolve(results);
-      });
-    });
-  });
-}
+const query = require('../utils/query')
 
      
 
@@ -238,16 +217,47 @@ async  login(credentails, callback) {
   
 
   async getAll(callback) {
-    const getUsersquery = 'SELECT * FROM users';
-    const result = await query(getUsersquery)
-    callback(result);
+try {
+      const getUsersquery = 'SELECT * FROM users';
+    const users = await query(getUsersquery)
+    callback(
+      {
+        status: 'success',
+        message: 'get users success',
+        users: users,
+        statusCode: 200,
+      });
+} catch (error) {
+  console.error('Error during logout:', error);
+  callback(
+    {
+      status: 'erorr',
+      message: 'Failed to get users',
+      statusCode: 500,
+    })
+}
   
 
   },
  async  getById(userId, callback) {
+   try {
     const getByIdQuery = 'SELECT * FROM users WHERE user_id = ?';
-    const result =  await query(getByIdQuery, [userId]);
-    callback(result)
+    const userByid =  await query(getByIdQuery, [userId]);
+    callback({
+      status: 'success',
+      message: 'get users by id success',
+      user: userByid,
+      statusCode: 200,
+    })
+   } catch (error) {
+    console.error('Error during logout:', error);
+  callback(
+    {
+      status: 'erorr',
+      message: 'Failed to get users',
+      statusCode: 500,
+    })
+   }
    
   },
 
@@ -294,7 +304,12 @@ async  update(userId, updatedUser, callback) {
    }
     const updateQuery = 'UPDATE users SET ? WHERE user_id = ?';
     const result = await query(updateQuery, [updateUser, userId])
-    callback(result);
+    callback(
+      {
+        status: 'success', 
+        message: 'user updated',
+        statusCode: 201,
+      });
   },
 async  delete(userId, callback) {
     try {
@@ -317,7 +332,6 @@ async  delete(userId, callback) {
           statusCode: 500
         })
     }
-    callback(result);
 }
 }
 module.exports = User;

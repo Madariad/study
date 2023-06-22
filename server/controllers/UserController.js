@@ -62,15 +62,35 @@ const UserController = {
   },
 
   getAll(req, res) {
-    User.getAll((users) => {
-      res.json(users);
+    User.getAll((result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message, users: result.users})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
   getById(req, res) {
     const userId = req.params.userId;
 
-    User.getById(userId, (user) => {
-      res.json(user);
+    User.getById(userId, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message, user: result.user})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
   update(req, res) {
@@ -78,17 +98,36 @@ const UserController = {
     const updatedUser = req.body;
 
     User.update(userId, updatedUser, (result) => {
-      res.json(result);
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
   delete(req, res) {
     const userId = req.params.userId;
 
     User.delete(userId, (result) => {
-      res.json(result);
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
 };
 
-// module.exports  = {UserController}
 module.exports =  UserController;
