@@ -34,9 +34,24 @@ const lessonController = {
   updateLesson(req, res) {
     const lessonId = req.params.id;
     const updatedLesson = req.body;
+    const token = req.headers.authorization;
 
-    Lesson.update(lessonId, updatedLesson, (result) => {
-      res.json(result);
+    Lesson.update(lessonId, updatedLesson, token, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json(
+        {
+         status: result.status, 
+         message: result.message,
+        })
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
     });
   },
 
