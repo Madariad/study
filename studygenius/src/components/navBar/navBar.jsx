@@ -164,7 +164,7 @@ function ResponsiveAppBar() {
               >
                 Каталог
               </Button>
-              <Button
+              <Button 
                 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
