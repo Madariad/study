@@ -12,7 +12,7 @@ export default function FormControlLabelPosition() {
           value="free"
           control={<Checkbox />}
           label="Бесплатные"
-          labelPlacement="free"
+          labelPlacement="end"
         />
       </FormGroup>
     </FormControl>

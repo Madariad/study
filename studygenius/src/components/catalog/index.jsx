@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
 function Catalog() {
   const dispath = useDispatch()
   useEffect(() => {
-    function getPosts() {
+    function getCourse() {
       dispath({type: 'GET_COURSE'})
     }
-    getPosts()
+    getCourse()
   }, [])
   const classes = useStyles();
 

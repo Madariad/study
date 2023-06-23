@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 22 2023 г., 20:41
--- Версия сервера: 8.0.30
--- Версия PHP: 8.0.22
+-- Время создания: Июн 23 2023 г., 06:44
+-- Версия сервера: 5.7.38
+-- Версия PHP: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,22 +28,24 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `courses` (
-  `course_id` int NOT NULL,
-  `course_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `course_language` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `course_creator_id` int DEFAULT NULL,
-  `course_topic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `course_id` int(11) NOT NULL,
+  `course_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `course_language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `course_creator_id` int(11) DEFAULT NULL,
+  `course_topic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `course_description` varchar(225) CHARACTER SET armscii8 NOT NULL,
+  `course_image` varchar(225) CHARACTER SET armscii8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `courses`
 --
 
-INSERT INTO `courses` (`course_id`, `course_name`, `course_language`, `course_creator_id`, `course_topic`) VALUES
-(1, 'React Course', 'English', 1, 'React'),
-(2, 'React learn full', 'English', 27, 'React'),
-(3, 'React learn full', 'English', 27, 'React'),
-(4, 'React learn full', 'English', 27, 'React');
+INSERT INTO `courses` (`course_id`, `course_name`, `course_language`, `course_creator_id`, `course_topic`, `course_description`, `course_image`) VALUES
+(1, 'React Course', 'English', 1, 'React', 'description ', NULL),
+(2, 'React learn full', 'English', 27, 'React', 'description ', NULL),
+(3, 'React learn full', 'English', 27, 'React', 'description ', NULL),
+(4, 'React learn full', 'English', 27, 'React', 'description ', NULL);
 
 -- --------------------------------------------------------
 
@@ -52,10 +54,10 @@ INSERT INTO `courses` (`course_id`, `course_name`, `course_language`, `course_cr
 --
 
 CREATE TABLE `lessons` (
-  `lesson_id` int NOT NULL,
-  `course_id` int DEFAULT NULL,
-  `lesson_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lesson_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+  `lesson_id` int(11) NOT NULL,
+  `course_id` int(11) DEFAULT NULL,
+  `lesson_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lesson_content` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -74,8 +76,8 @@ INSERT INTO `lessons` (`lesson_id`, `course_id`, `lesson_title`, `lesson_content
 --
 
 CREATE TABLE `roles` (
-  `role_id` int NOT NULL,
-  `role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -94,11 +96,11 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 --
 
 CREATE TABLE `sublessons` (
-  `sublesson_id` int NOT NULL,
-  `lesson_id` int DEFAULT NULL,
-  `sublesson_title` varchar(255) DEFAULT NULL,
-  `sublesson_content` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `sublesson_id` int(11) NOT NULL,
+  `lesson_id` int(11) DEFAULT NULL,
+  `sublesson_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sublesson_content` text COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `sublessons`
@@ -118,8 +120,8 @@ INSERT INTO `sublessons` (`sublesson_id`, `lesson_id`, `sublesson_title`, `suble
 --
 
 CREATE TABLE `tokens` (
-  `user_id` int DEFAULT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -141,11 +143,11 @@ INSERT INTO `tokens` (`user_id`, `token`) VALUES
 --
 
 CREATE TABLE `users` (
-  `user_id` int NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role_id` int DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `user_id` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -218,25 +220,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `lesson_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `sublessons`
 --
 ALTER TABLE `sublessons`
-  MODIFY `sublesson_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `sublesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
