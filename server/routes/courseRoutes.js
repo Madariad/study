@@ -1,5 +1,7 @@
 const express = require('express');
 const courseController = require('../controllers/CourseController');
+const  UserController = require('../controllers/UserController');
+const imageConfig = require('../utils/multer');
 
 const router = express.Router();
 
@@ -20,5 +22,11 @@ router.put('/:id', courseController.updateCourse);
 
 // Удаление курса
 router.delete('/:id', courseController.deleteCourse);
+
+
+
+router.post('/:courseId/upload', imageConfig.course.config(), imageConfig.course.upload);
+
+router.get('/courseId/download', imageConfig.course.download);
 
 module.exports = router;

@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const  UserController = require('../controllers/UserController');
+const imageConfig = require('../utils/multer');
+
+
 //middleware
 // const authenticateToken = require('../middleware/authenticateToken')
 
@@ -29,5 +32,12 @@ router.put('/:userId', UserController.update);
 
 // // Удаление пользователя
 router.delete('/:userId', UserController.delete);
+
+
+
+
+router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.upload);
+
+router.get('/avatar/download', imageConfig.users.download);
 
 module.exports = router;

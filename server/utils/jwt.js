@@ -52,6 +52,13 @@ const jwtHelpers = {
           console.log(error);
         }
       },
+      async getUser(token){
+        const userEmail = await helper(token);
+
+        const sql = 'SELECT * FROM users WHERE email = ?';
+          const res = await query(sql, [userEmail]);
+          return res
+      },
       async getUserData(token){
         const userEmail = await helper(token);
 

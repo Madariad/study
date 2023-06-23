@@ -2,7 +2,9 @@ const express = require('express');
 const userRouter = require('./routes/userRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const lessonRoutes = require('./routes/lessonRoutes');
-const sublessonsRoutes= require('./routes/sublessonsRoutes')
+const sublessonsRoutes= require('./routes/sublessonsRoutes');
+
+
 
 const bodyParser = require('body-parser');
 
@@ -41,6 +43,7 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/course', courseRoutes)
 app.use('/api/v1/lesson', lessonRoutes)
 app.use('/api/v1/sublessons', sublessonsRoutes)
+
 
 
 const PORT = process.env.SERVER_PORT || 5000
