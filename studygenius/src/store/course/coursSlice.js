@@ -8,7 +8,7 @@ const courseSlice = createSlice({
     reducers: {
         setCourseList(state, actions){
             state.courseList = actions.payload.course
-            console.log(state.courseList);
+            // console.log(state.courseList);
         }
     }
 })

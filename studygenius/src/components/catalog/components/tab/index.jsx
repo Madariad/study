@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -12,6 +13,10 @@ import { Grid, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import img from '../../../../../public/img/react.png'
 import { makeStyles } from '@mui/styles'
+
+import { useSelector } from 'react-redux'
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +48,24 @@ export default function LabTabs() {
     // [theme.breakpoints.up('xs')]: {
     //   },
   }));
+  // const ss = useSelector((state) => state.course.courseList)
+  //  useEffect(() => {
+  //   function a() {
+  //     console.log(ss)
+  //   }
+  //   a()
+  //  }, [ss])
+
+  
+
+  
+  const courseList = useSelector((state) => state.course.courseList);
+  const response = courseList.map((course) => ( 
+  <Grid item xs={12} sm={6} md={4} >
+    <Card description={course.course_description} name={course.course_name} id={course.course_id}/>         
+  </Grid>))
+
+
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -57,31 +80,7 @@ export default function LabTabs() {
         </Box>
         <TabPanel value="1">
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>           
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>           
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>           
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>           
-                </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                    <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>
-                </Grid>
-                
+                {response}
             </Grid>
         </TabPanel>
         <TabPanel value="2">Item Two</TabPanel>

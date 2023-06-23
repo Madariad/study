@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { makeStyles } from '@mui/styles';
 import InputSearch from "./components/inputSearch/index";
 import Button from '@mui/material/Button';
@@ -10,6 +11,8 @@ import Box from '@mui/material/Box';
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux"
+
+import Container from '@mui/material/Container'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +48,8 @@ function Catalog() {
   const classes = useStyles();
 
   return (
+    <Container maxWidth="lg" sx={{marginTop: '100px'}}>
+
     <div>
       <div className={classes.search}>
         <Grid container spacing={2} alignItems="center" justifyContent="space-evenly">
@@ -78,6 +83,7 @@ function Catalog() {
         <Subject />
       </div> */}
     </div>
+    </Container>
   );
 }
 
