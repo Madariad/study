@@ -32,7 +32,7 @@ function App() {
           <RouterProvider router={router} />
       </Container>
       </> : 
-      <ResponsiveDrawer router={SidebarRouter}/> }
+      <TeachingPage/> }
     </ThemeProvider> 
   );
 }

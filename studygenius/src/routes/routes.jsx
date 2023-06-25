@@ -5,7 +5,6 @@ import Catalog from "../components/catalog/index";
 import ErrorRoutePages from "../components/ErrorRoutePages/index";
 import TeachingPage from '../pages/teaching-page/TeachingPage';
 
-
 const router = createBrowserRouter([
     {
       path: "/",

@@ -6,3 +6,7 @@
     display: flex;
     gap: 20px;
 }
+
+.section-padding {
+    padding: 40px 0;
+}
