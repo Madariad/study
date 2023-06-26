@@ -141,7 +141,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -155,7 +155,8 @@ function ResponsiveAppBar() {
           >
            studygenius
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  component="a"
+               href='/'>
 
               <Button
                 
@@ -164,7 +165,9 @@ function ResponsiveAppBar() {
               >
                 Каталог
               </Button>
-              <Button 
+              <Button
+              component="a"
+               href='/teach/courses'
                 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
