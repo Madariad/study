@@ -186,17 +186,19 @@ function ResponsiveAppBar() {
 
 
           
+            {localStorage.getItem('token') ? 
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    variant="dot"
-                  >
-                <Avatar  alt="Remy Sharp" src={avatar} />
-                </StyledBadge>
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  variant="dot"
+                >
+              <Avatar  alt="Remy Sharp" src={avatar}  />
+              </StyledBadge>
+            </IconButton>
+          </Tooltip>  
+            : <div>Войти</div>}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
