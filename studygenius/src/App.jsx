@@ -2,6 +2,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useSelector } from "react-redux";
 import { lightTheme, darkTheme } from "./theme/index";
+import * as React from 'react'
 
 import { RouterProvider } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ import Container from '@mui/material/Container'
 import ResponsiveDrawer from './components/drawer/ResponsiveDrawer';
 import TeachingPage from './pages/teaching-page/TeachingPage';
 import SidebarRouter from './routes/SidebarRouter';
+import { CreatingContext } from './context';
 
 
 
@@ -39,7 +41,8 @@ function App() {
  
  
       </> : 
- <TeachingPage/> }
+        <TeachingPage/>
+       }
     </ThemeProvider> 
   );
 }

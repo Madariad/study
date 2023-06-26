@@ -19,10 +19,50 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link, NavLink, RouterProvider, useNavigate } from 'react-router-dom';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { CreatingContext } from '../../context';
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor: '#fff',
+  flexDirection: 'row',
+  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+    transform: 'rotate(90deg)',
+  },
+  '& .MuiAccordionSummary-content': {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+}));
 
 const drawerWidth = 240;
 
 // const button = withRouter(({history})  => history.push('/teach/course/create'))
+
+
 
 function ResponsiveDrawer(props) { 
     // const navigate = useNavigate()
@@ -35,20 +75,81 @@ function ResponsiveDrawer(props) {
 //   function yu() {
 //     navigate('/teach/courses')
 //   }
+  const [isCreating, setIsCreating] = React.useState(false)
+  React.useMemo(() => {
+    console.log(isCreating)
+  }, [isCreating])
+
+// accordion
+  const [expanded, setExpanded] = React.useState('');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   const drawer = (
     <div>
+      <CreatingContext.Provider value={{
+      isCreating,
+      setIsCreating
+    }}>
       <Toolbar />
       <Divider />
       <List>
-      <ListItem disablePadding>
+        {isCreating ? 
+           <div>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography>Курс</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={{paddingLeft: '40px'}}>
+          <div>
+            <a href="/course/description">Описание</a>
+          </div>
+          <div>
+            <a href="/course/description">Содержание</a>
+          </div>
+          <div>
+            <a href="/course/description">Чек</a>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+          <Typography>Collapsible Group Item #2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+          <Typography>Collapsible Group Item #3</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>:
+        <>
+           <ListItem disablePadding>
         <ListItemButton  components={NavLink} to={'/'}>
               <ListItemIcon>
-                <PostAddIcon/>
+                <ArrowBackIcon/>
               </ListItemIcon>
-              <ListItemText primary={'Stepik'} />
+              <ListItemText primary={'Назад'} />
         </ListItemButton>
-        </ListItem>
+      </ListItem>
       <ListItem disablePadding>
         <ListItemButton  components={NavLink} to={'/teach/courses/create'}>
               <ListItemIcon>
@@ -56,7 +157,7 @@ function ResponsiveDrawer(props) {
               </ListItemIcon>
               <ListItemText primary={'Создать курс'} />
         </ListItemButton>
-        </ListItem>
+      </ListItem>
         <ListItem disablePadding>
         <ListItemButton  components={NavLink} to={'/teach/courses'}>
               <ListItemIcon>
@@ -64,19 +165,12 @@ function ResponsiveDrawer(props) {
               </ListItemIcon>
               <ListItemText primary={'Курсы'} />
         </ListItemButton>
-        </ListItem>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      </ListItem>
+        </>
+        }
       </List>
       <Divider />
+      </CreatingContext.Provider>
     </div>
   );
 
@@ -144,7 +238,12 @@ function ResponsiveDrawer(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
+        <CreatingContext.Provider value={{
+          isCreating,
+          setIsCreating
+        }}>
         <RouterProvider router={props.router}/>
+        </CreatingContext.Provider>
       </Box>
     </Box>
   );
