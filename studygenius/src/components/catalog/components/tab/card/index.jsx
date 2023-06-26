@@ -1,6 +1,6 @@
 import './style.css'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 // const response = useSelector((state) => state.courseList)
@@ -8,6 +8,11 @@ import { useSelector } from 'react-redux';
 // ${course.id}
 export default function card({description, name, id}) {
   const courseList = useSelector((state) => state.course.courseList);
+  // console.log(courseList)
+  // const dispatch = useDispatch
+  // dispatch({type: 'GET_LESSONS'})
+  const bot = useSelector((state) => state.lessons.lessonList)
+  console.log(bot)
   return (
     
       // <div className="main">

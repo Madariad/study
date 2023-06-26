@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
     getCourse()
   }, [dispath])
-  console.log(courses);
+  // console.log(courses);
   // courses.map((course) => {
   //   console.log(course);
   // })

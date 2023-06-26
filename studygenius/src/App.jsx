@@ -19,7 +19,7 @@ import SidebarRouter from './routes/SidebarRouter';
 
 
 function App() {
-  console.log(router.state.location.pathname)
+  // console.log(router.state.location.pathname)
   const startsWith = (str, prefix) => {
     return str.indexOf(prefix) === 0
   }
