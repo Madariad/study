@@ -63,9 +63,9 @@ function signIn() {
       <div className="register">
 				<form className="form" onSubmit={register}>
 					<label for="chk" aria-hidden="true" className="label">Register</label>
-					<input className="inputs" type="text" name="txt" placeholder="Username" required="" />
+					<input className="inputs" type="text" name="txt" placeholder="Username" minLength={4} required="" />
 					<input className="inputs" type="email" name="email" placeholder="Email" required="" />
-					<input className="inputs" type="password" name="pswd" placeholder="Password" required="" />
+					<input className="inputs" type="password" name="pswd" placeholder="Password" required="" minLength={8} />
                     <select name="role">
                         <option value="teachers">Teachers</option>
                         <option value="students">Students</option>
