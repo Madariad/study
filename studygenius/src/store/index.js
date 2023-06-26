@@ -4,8 +4,9 @@ import courseSaga from "./course/courseSaga";
 
 import themeSlice from "./theme/themeSlice";
 import courseSlice from "./course/coursSlice";
-import lessonsSaga from "./lessons/lessonSaga";
-import lessonsSlice from "./lessons/lessonSlice";
+
+import lessonsSlice from "./lessons/lessonsSlice";
+import lessonsSaga from "./lessons/lessonsSaga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -13,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({
      theme: themeSlice,
-     course: courseSlice,   
+     course: courseSlice,
      lessons: lessonsSlice,   
 });
 

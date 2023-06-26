@@ -34,3 +34,12 @@
     height: 150px;
     border-radius: 10px;
 }
+
+.lessons {
+    margin-top: 150px;
+    color: black;
+}
+
+.lessons_items {
+    color: black;
+}

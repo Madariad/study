@@ -1,6 +1,7 @@
 import './style.css'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 
 // const response = useSelector((state) => state.courseList)
@@ -8,11 +9,23 @@ import { useSelector, useDispatch } from 'react-redux';
 // ${course.id}
 export default function card({description, name, id}) {
   const courseList = useSelector((state) => state.course.courseList);
+
   // console.log(courseList)
   // const dispatch = useDispatch
   // dispatch({type: 'GET_LESSONS'})
-  const bot = useSelector((state) => state.lessons.lessonList)
-  console.log(bot)
+  const dispath = useDispatch()
+  useEffect(() => {
+    function ass() {
+
+  dispath({type: 'GET_LESSONS'})
+    }
+    ass()
+  }, [dispath])
+
+
+  const lessons = useSelector((state) => state.lessons.lessonsList)
+  console.log(lessons);
+
   return (
     
       // <div className="main">
@@ -47,7 +60,7 @@ export default function card({description, name, id}) {
                 {/* <p className="card_price">
                   1999 ₸
                 </p> */}
-                <Link to={`/${id}`} style={{textDecoration: 'none'}}>
+                <Link to={`/${id}/courses`} style={{textDecoration: 'none'}}>
                   <button className="btn card_btn">Бесплатно</button>
                 </Link>
               </div>
