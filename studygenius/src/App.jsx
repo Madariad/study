@@ -9,7 +9,7 @@ import  NavBar  from "./components/navBar/navBar";
 
 
 import router from "./routes/routes";
-import Container from '@mui/material/Container'
+
 
 function App() {
   const mode = useSelector((state) => state.theme.mode);
@@ -19,9 +19,9 @@ function App() {
     <ThemeProvider theme={theme}> 
       <CssBaseline />
       <NavBar />
-      <Container maxWidth="lg" sx={{marginTop: '100px'}}>
+   
           <RouterProvider router={router} />
-      </Container>
+ 
     </ThemeProvider> 
   );
 }

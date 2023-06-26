@@ -1,5 +1,5 @@
 import axiosConfig from "../../axiosConfig";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put,  takeLatest } from "redux-saga/effects";
 import { setCourseList } from "./coursSlice";
 
 function* getCourse() {
@@ -12,7 +12,7 @@ function* getCourse() {
 }
 
 function* courseSaga() {
-  yield takeEvery('GET_COURSE', getCourse);
+  yield  takeLatest('GET_COURSE', getCourse);
 }
 
 export default courseSaga;

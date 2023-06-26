@@ -6,10 +6,12 @@ import Select from "./components/select/index";
 import Checkbox from "./components/checkbox/index";
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
+import  Test  from '../test';
+import Container from '@mui/material/Container'
 
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
-import { useDispatch, useSelector } from "react-redux"
+// import { useDispatch, useSelector } from "react-redux"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,16 +37,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Catalog() {
-  const dispath = useDispatch()
-  useEffect(() => {
-    function getCourse() {
-      dispath({type: 'GET_COURSE'})
-    }
-    getCourse()
-  }, [])
+  // const dispath = useDispatch()
   const classes = useStyles();
 
   return (
+   <Container maxWidth="lg" sx={{marginTop: '100px'}}>
+
     <div>
       <div className={classes.search}>
         <Grid container spacing={2} alignItems="center" justifyContent="space-evenly">
@@ -74,10 +72,12 @@ function Catalog() {
       <div className={classes.tab}>
         <Tab />
       </div>
-      {/* <div className={classes.subject}>
-        <Subject />
-      </div> */}
+      <div className={classes.subject}>
+      <Test/>
+        {/* <Subject /> */}
+      </div>
     </div>
+    </Container>
   );
 }
 

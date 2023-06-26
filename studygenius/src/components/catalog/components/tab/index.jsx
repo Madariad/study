@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -13,6 +13,12 @@ import Paper from '@mui/material/Paper';
 import img from '../../../../../public/img/react.png'
 import { makeStyles } from '@mui/styles'
 
+
+
+import { useDispatch, useSelector } from "react-redux"
+
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       fontWeight: 'bold',
@@ -23,8 +29,38 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export default function LabTabs() {
-  const [value, setValue] = React.useState('1');
+ function LabTabs() {
+   const dispath = useDispatch()
+  const courses = useSelector((state) => state.course.courseList)
+   const [value, setValue] = useState('1');
+  //  const [courses, setCourses] = useState([]);
+
+
+   
+   useEffect(() => {
+     function getCourse() {
+      dispath({type: 'GET_COURSE'})
+     
+    }
+    getCourse()
+  }, [dispath])
+  console.log(courses);
+  // courses.map((course) => {
+  //   console.log(course);
+  // })
+//  console.log(course);
+  // if (courses === null) {
+  //   console.log('null');
+  // } else {
+  //   const courses = useSelector((state) => state.course.courseList)
+  //   setCourses(courses)
+
+  // }
+
+
+
+
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,6 +81,8 @@ export default function LabTabs() {
   }));
 
   return (
+
+    
     <Box sx={{ width: '100%', typography: 'body1' }}>
         <Typography variant="h1" color="primary">онлайн курсы 🧠</Typography>
       <TabContext value={value}>
@@ -56,7 +94,8 @@ export default function LabTabs() {
           </TabList>
         </Box>
         <TabPanel value="1">
-            <Grid container spacing={2}>
+          {/* {course.map} */}
+            {/* <Grid container spacing={2}>
                 <Grid item xs={12} sm={4} md={3}>
                     <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>           
                 </Grid>
@@ -82,7 +121,7 @@ export default function LabTabs() {
                     <Item><Card title={'Курсы React'} subtitle={'React best'} img={img}/></Item>
                 </Grid>
                 
-            </Grid>
+            </Grid> */}
         </TabPanel>
         <TabPanel value="2">Item Two</TabPanel>
         <TabPanel value="3">Item Three</TabPanel>
@@ -90,3 +129,5 @@ export default function LabTabs() {
     </Box>
   );
 }
+
+export default LabTabs
