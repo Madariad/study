@@ -6,4 +6,23 @@ const instance = axios.create({
   baseURL: `${baseURL}`
 });
 
+// Add a request interceptor
+instance.interceptors.request.use(
+  function (config) {
+    // Get the token from localStorage
+    const token = localStorage.getItem('token');
+
+    // Add the token to the request headers
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+
 export default instance;
