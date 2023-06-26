@@ -1,15 +1,14 @@
 .course {
     /* background: url(../../../../public/img/react.png) center no-repeat; */
-    background-color: rgb(56, 46, 65);
-    width: 100%;
-    height: 50vh;
-    color: snow;
+    
 }
 
 .course_items {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    
+    background-color: rgb(56, 46, 65);
+    width: 100%;
+    height: 400px;
+    color: snow;
 }
 
 .course_item {
@@ -27,6 +26,16 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.lessons_container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .course_img img{
@@ -36,7 +45,7 @@
 }
 
 .lessons {
-    margin-top: 150px;
+    margin-top: 50px;
     color: black;
 }
 

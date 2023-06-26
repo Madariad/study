@@ -45,9 +45,9 @@ function CourseList() {
     };
     return (
         <div className="course">
-            <div className="course_container">
+            
             <div className="course_items">
-
+            <div className="course_container">
                     {courseList !== null ? courseList.map((course, i) => (
                         <div className="course_item" key={i}>
                             <div className="course_title">{course.course_name}</div>
@@ -63,7 +63,7 @@ function CourseList() {
             </div>
             </div>
             <div className="lessons">
-            <div className="course_container">
+            <div className="lessons_container">
             Программа курса
                 {lessons.map((lesson, index) => (
                     
