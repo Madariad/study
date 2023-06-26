@@ -1,4 +1,8 @@
+
 import {useState, useEffect } from 'react';
+
+import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -15,7 +19,10 @@ import { makeStyles } from '@mui/styles'
 
 
 
+
 import { useDispatch, useSelector } from "react-redux"
+
+
 
 
 
@@ -79,6 +86,28 @@ const useStyles = makeStyles((theme) => ({
     // [theme.breakpoints.up('xs')]: {
     //   },
   }));
+  // const ss = useSelector((state) => state.course.courseList)
+  //  useEffect(() => {
+  //   function a() {
+  //     console.log(ss)
+  //   }
+  //   a()
+  //  }, [ss])
+
+  
+
+  
+  const courseList = useSelector((state) => state.course.courseList);
+  if (courseList !== null) {
+    
+    // console.log(courseList);
+    // const response = courseList.map((course) => ( 
+    // <Grid item xs={12} sm={6} md={4} >
+    //   <Card description={course.course_description} name={course.course_name} id={course.course_id}/>         
+    // </Grid>))
+  // console.log(response);
+  }
+
 
   return (
 
@@ -94,6 +123,7 @@ const useStyles = makeStyles((theme) => ({
           </TabList>
         </Box>
         <TabPanel value="1">
+
           {/* {course.map} */}
             {/* <Grid container spacing={2}>
                 <Grid item xs={12} sm={4} md={3}>
@@ -122,6 +152,14 @@ const useStyles = makeStyles((theme) => ({
                 </Grid>
                 
             </Grid> */}
+
+            <Grid container spacing={2}>
+                {courseList !== null ? courseList.map((course) => ( 
+    <Grid item xs={12} sm={6} md={4} key={course.course_id}>
+      <Card description={course.course_description} name={course.course_name} id={course.course_id}/>         
+    </Grid>)) : <div>Loading</div>}
+            </Grid>
+
         </TabPanel>
         <TabPanel value="2">Item Two</TabPanel>
         <TabPanel value="3">Item Three</TabPanel>

@@ -190,7 +190,7 @@ function ResponsiveAppBar() {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     variant="dot"
                   >
-                <Avatar alt="Remy Sharp" src={avatar} />
+                <Avatar  alt="Remy Sharp" src={avatar} />
                 </StyledBadge>
               </IconButton>
             </Tooltip>

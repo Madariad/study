@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { makeStyles } from '@mui/styles';
 import InputSearch from "./components/inputSearch/index";
 import Button from '@mui/material/Button';
@@ -11,6 +12,8 @@ import Container from '@mui/material/Container'
 // import { useEffect } from "react";
 
 // import { useDispatch, useSelector } from "react-redux"
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +43,9 @@ function Catalog() {
   const classes = useStyles();
 
   return (
+
    <Container maxWidth="lg" sx={{marginTop: '100px'}}>
+
 
     <div>
       <div className={classes.search}>
@@ -72,7 +77,6 @@ function Catalog() {
         <Tab />
       </div>
       <div className={classes.subject}>
-      <Test/>
         {/* <Subject /> */}
       </div>
     </div>

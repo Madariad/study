@@ -4,7 +4,8 @@ import { setCourseList } from "./coursSlice";
 
 function* getCourse() {
   try {
-    const course = yield call(axiosConfig.get, '/course/'); 
+    const course = yield call(axiosConfig.get, '/course/');
+    console.log('asas', course); 
     yield put(setCourseList({ course: course.data.courses }));
   } catch (error) {
     console.log(error);
