@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import { Link, NavLink } from 'react-router-dom'
 
 import  ModeToggle  from "../modeToggle/modeToggle";
 
@@ -124,10 +125,9 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-            
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Каталог</Typography>
-                </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Каталог</Typography>
+                  </MenuItem>
 
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Преподавание</Typography>
@@ -164,7 +164,7 @@ function ResponsiveAppBar() {
               >
                 Каталог
               </Button>
-              <Button
+              <Button 
                 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}

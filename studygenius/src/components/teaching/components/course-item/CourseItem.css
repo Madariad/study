@@ -1,0 +1,100 @@
+.course-teacher-card {
+  position: relative;
+  padding: 20px;
+  box-shadow: 1px 1px 4px gray;
+  display: flex;
+  gap: 10px;
+  transition: box-shadow .3s linear;
+}
+
+.course-teacher-card__img {
+  width: 70px;
+}
+
+.course-teacher-card__img img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.course-teacher-card__title {
+  margin-bottom: 20px;
+}
+
+.course-teacher-card__link {
+  position: relative;
+  z-index: 2;
+  color: blue;
+  margin-right: 15px;
+}
+
+.course-teacher-card__link:hover {
+  text-decoration: underline;
+}
+
+.course-teacher-card__main-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.course-teacher-card:hover {
+  box-shadow: 3px 3px 7px black;
+}
+
+.course-teacher-card__content {
+  flex: 1;
+}
+
+course-teacher-card__tools {
+  
+}
+
+.course-teacher-card__tool {
+  width: 15px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.dot {
+  content: '';
+  display: block;
+  border-radius: 100%;
+  background-color: gray;
+  width: 6px;
+  height: 7px;
+  margin: 1px 0;
+}
+
+.course-teacher-card__tool-elements {
+  position: absolute;
+  display: none;
+  /* display: none; */
+  top: 120%;
+  right: 0;
+}
+
+.course-teacher-card__tool-elements.active {
+  display: block;
+}
+
+.course-teacher-card__tool-elements button {
+  display: block;
+  outline: none;
+  border: none;
+  width: 150px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.course-teacher-card__tool-elements button:hover {
+  background-color: lightgreen;
+}

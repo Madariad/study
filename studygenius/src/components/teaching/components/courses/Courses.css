@@ -1,0 +1,12 @@
+.courses {
+    color: black;
+}
+
+.course-search__inner {
+    display: flex;
+    gap: 20px;
+}
+
+.section-padding {
+    padding: 40px 0;
+}

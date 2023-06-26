@@ -6,7 +6,6 @@ import Select from "./components/select/index";
 import Checkbox from "./components/checkbox/index";
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import  Test  from '../test';
 import Container from '@mui/material/Container'
 
 // import { useEffect } from "react";
