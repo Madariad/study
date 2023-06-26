@@ -17,7 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link, NavLink, RouterProvider, useNavigate } from 'react-router-dom';
+import { Link, NavLink, RouterProvider, useNavigate, useParams } from 'react-router-dom';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CreatingContext } from '../../context';
@@ -26,6 +26,8 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import router from '../../routes/routes';
+import { pathToRegexp } from 'path-to-regexp';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -75,10 +77,22 @@ function ResponsiveDrawer(props) {
 //   function yu() {
 //     navigate('/teach/courses')
 //   }
-  const [isCreating, setIsCreating] = React.useState(false)
-  React.useMemo(() => {
-    console.log(isCreating)
-  }, [isCreating])
+  // const [isCreating, setIsCreating] = React.useState(false)
+  // React.useMemo(() => {
+  //   console.log(isCreating)
+  // }, [isCreating])
+
+  const isCreating = JSON.parse(localStorage.getItem('isCreating'))
+  const creatingName = JSON.parse(localStorage.getItem('creating-name'))
+
+  const pattern = '/teach/courses/(.*)'
+  const regex = pathToRegexp(pattern)
+  const match = regex.exec(router.state.location.pathname);
+  console.log(match)
+  if (match) {
+    localStorage.removeItem('isCreating')
+    localStorage.removeItem('creating-name')
+  }
 
 // accordion
   const [expanded, setExpanded] = React.useState('');
@@ -89,28 +103,40 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      <CreatingContext.Provider value={{
-      isCreating,
-      setIsCreating
-    }}>
       <Toolbar />
       <Divider />
       <List>
-        {isCreating ? 
+        {isCreating && creatingName ? 
            <div>
+            <ListItem disablePadding>
+        <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/'}>
+              <ListItemIcon>
+                
+              </ListItemIcon>
+              <ListItemText primary={creatingName} />
+        </ListItemButton>
+      </ListItem>
+             <ListItem disablePadding>
+        <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/'}>
+              <ListItemIcon>
+                <ArrowBackIcon/>
+              </ListItemIcon>
+              <ListItemText primary={'Назад'} />
+        </ListItemButton>
+      </ListItem>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Курс</Typography>
         </AccordionSummary>
         <AccordionDetails style={{paddingLeft: '40px'}}>
           <div>
-            <a href="/course/description">Описание</a>
+            <a href="/courses/description">Описание</a>
           </div>
           <div>
-            <a href="/course/description">Содержание</a>
+            <a href="/courses/22/syllabus">Содержание</a>
           </div>
           <div>
-            <a href="/course/description">Чек</a>
+            <a href="/courses/check">Чек</a>
           </div>
         </AccordionDetails>
       </Accordion>
@@ -170,7 +196,6 @@ function ResponsiveDrawer(props) {
         }
       </List>
       <Divider />
-      </CreatingContext.Provider>
     </div>
   );
 
@@ -238,12 +263,7 @@ function ResponsiveDrawer(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <CreatingContext.Provider value={{
-          isCreating,
-          setIsCreating
-        }}>
         <RouterProvider router={props.router}/>
-        </CreatingContext.Provider>
       </Box>
     </Box>
   );

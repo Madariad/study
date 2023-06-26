@@ -26,7 +26,7 @@ const SidebarRouter = createBrowserRouter([
         errorElement: <ErrorRoutePages/>
     },
     {
-      path: '/teach/courses/:id/syllabus',
+      path: '/courses/:id/syllabus',
       element: <Syllabus/>,
       errorElement: <ErrorRoutePages/>
     }

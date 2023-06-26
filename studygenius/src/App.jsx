@@ -31,7 +31,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}> 
       <CssBaseline />
-      {!startsWith(router.state.location.pathname, '/teach') ? 
+      {!startsWith(router.state.location.pathname, '/teach') && !startsWith(router.state.location.pathname, '/courses') ? 
       <>
       <NavBar />
 

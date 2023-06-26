@@ -9,7 +9,7 @@ const CourseList = ({list}) => {
   return (
     <ul className='courses-teacher__list'>
               {list.map((listItem) => 
-                <CourseItem item={listItem}/>
+                <CourseItem item={listItem} key={listItem.title}/>
               )}
             </ul>
   )
