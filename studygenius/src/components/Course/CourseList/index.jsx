@@ -65,7 +65,7 @@ function CourseList() {
             <div className="lessons">
             <div className="lessons_container">
             Программа курса
-                {lessons.map((lesson, index) => (
+                {lessons !== null ? lessons.map((lesson, index) => (
                     
                     <div className="lessons_items" key={index}>
                     
@@ -91,7 +91,7 @@ function CourseList() {
                             </Collapse>
                         </List>
                     </div>
-                ))}
+                )) : <div>loading</div>}
                 </div>
             </div>
         </div>
