@@ -172,8 +172,7 @@ function ResponsiveAppBar() {
           >
            studygenius
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  component="a"
-               href='/'>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  >
 
               <Button
                 

@@ -2,19 +2,10 @@ import './style.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
+import Button from '@mui/material/Button';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useParams } from 'react-router-dom';
+import DoneIcon from '@mui/icons-material/Done';
 
 function CourseList() {
     const {courseId} = useParams()
@@ -63,35 +54,52 @@ function CourseList() {
             </div>
             </div>
             <div className="lessons">
-            <div className="lessons_container">
-            Программа курса
-                {lessons !== null ? lessons.map((lesson, index) => (
-                    
-                    <div className="lessons_items" key={index}>
-                    
-                        <List
-                            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-                            component="nav"
-                            aria-labelledby="nested-list-subheader"
-                            subheader={
-                            <ListSubheader component="div" id="nested-list-subheader">
-                            </ListSubheader>
-                            }
-                        >
-                            <ListItemButton onClick={handleClick}>
-                            <ListItemText primary={lesson.lesson_title} />
-                            {open ? <ExpandLess /> : <ExpandMore />}
-                            </ListItemButton>
-                            <Collapse in={open} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                <ListItemText primary={lesson.lesson_content} />
-                                </ListItemButton>
-                            </List>
-                            </Collapse>
-                        </List>
+                <div className="lessons_container">
+                    <div className="lessons_items">
+                        <div className="lessons_item">
+                            <h3>Чему вы научитесь</h3><br />
+                            <ul>
+                                <li> <DoneIcon style={{color: "green"}} /> Разбираться в работе с переменными, типами данных, управляющими структурами, функциями в Go.</li>
+                                <li> <DoneIcon style={{color: "green"}} /> Разбираться в работе с переменными, типами данных, управляющими структурами, функциями в Go.</li>
+                                <li> <DoneIcon style={{color: "green"}} /> Разбираться в работе с переменными, типами данных, управляющими структурами, функциями в Go.</li>
+                                <li> <DoneIcon style={{color: "green"}} /> Разбираться в работе с переменными, типами данных, управляющими структурами, функциями в Go.</li>
+                            </ul>
+                        </div>
+                        <div className="lessons_item">
+                            <h3>О курсе</h3><br />
+                            <p>
+                                Go (или Golang) - это высокоуровневый язык программирования, разработанный компанией Google.
+                                Он был создан с целью упростить разработку программных приложений, обладать высокой 
+                                производительностью и быть легким в использовании. Основные принципы, лежащие в основе 
+                                языка Go, - это простота, эффективность и надежность. <br /><br />
+                                Go имеет огромное сообщество разработчиков, которые активно поддерживают и развивают язык,
+                                предлагая множество библиотек и модулей, которые значительно упрощают разработку.
+                                Go также является одним из наиболее востребованных языков программирования на рынке труда,
+                                что делает его привлекательным выбором для тех, кто стремится к карьерному росту.
+                            </p>
+                        </div>
+                        <div className="lessons_item">
+                            <h3>Начальные требования</h3><br />
+                            <p>
+                                Для успешного прохождения курса "Go Тренажер" требуются базовые знания из школьной программы 
+                                по информатике и математике, а также базовый уровень владения языком программирования Go.
+                                Если вы уже изучали Go и имеете опыт работы с ним, то этот курс поможет вам улучшить ваши навыки
+                                и подготовиться к новым вызовам.<br /><br />
+                                Если же вы новичок в программировании или только начинаете изучать Go, то рекомендуем предварительно 
+                                или паралельно изучить Go на базовом уровне. Это поможет вам быстрее и легче освоить материал курса и 
+                                получить максимальную пользу от его прохождения.
+                            </p>
+                        </div>
                     </div>
-                )) : <div>loading</div>}
+                    <div className="lessons_itemss">
+                        <div className="lessons_menu">
+                            <div className="lessons_menu_item sticky">
+                                <h3 style={{color: "green"}}>Бесплатно</h3><br />
+                                <Button variant="contained" style={{width: "300px", height: "50px"}}>Купить</Button> <br /><br />
+                                <Button variant="outlined" style={{width: "300px", height: "50px"}}> <FavoriteBorderIcon /> Пройти курс</Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
