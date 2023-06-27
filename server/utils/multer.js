@@ -44,12 +44,12 @@ const imageConfig = {
             const token = req.headers.authorization;
             const tokens = token.split('Bearer ')[1];
             const userId = await  jwtHelpers.getUserId(tokens)
-            const filename = imageConfig.users.pathName + '/'  + req.file.filename; 
+            const filename =  req.file.filename;
 
              const userData = await jwtHelpers.getUser(tokens);
 
              if (userData[0].avatar !== null) {
-                const imagePath = userData[0].avatar
+                const imagePath = imageConfig.users.pathName + '/' + userData[0].avatar
 
                  // Удаление файла
                 fs.unlink(imagePath, function(err) {
@@ -72,18 +72,16 @@ const imageConfig = {
            });
        },
      async  download(req, res) {
-        const token = req.headers.authorization;
-        const tokens = token.split('Bearer ')[1];
-        const userData = await jwtHelpers.getUser(tokens)
-        const filePath = userData[0].avatar; 
+        const pathFile = req.params.path
     
             // Получение абсолютного пути к текущей папке
         const currentDirectory = __dirname;
     
             // Получение пути к папке, на одну папку выше текущей
-        const parentDirectory = path.join(currentDirectory, '..');
+        const parentDirectory = path.join(currentDirectory, '../storage/user/images');
     
-        const imagePath = path.join(parentDirectory, filePath);
+        const imagePath = path.join(parentDirectory, pathFile);
+        console.log(imagePath);
     
     
     
@@ -127,13 +125,14 @@ const imageConfig = {
         },
         async  upload(req, res, next) {
             const courseId = req.params.courseId
-             const getCourseSql = 'SELECT course_image FROM course WHERE course_id = ?';
+             const getCourseSql = 'SELECT course_image FROM courses WHERE course_id = ?';
              const getCourse = await query(getCourseSql, [courseId])
      
-            const filename = imageConfig.course.pathName + '/'  + req.file.filename; 
+             const filename =  req.file.filename; 
+             console.log(filename); 
 
              if (getCourse[0].course_image !== null) {
-                const imagePath = getCourse[0].course_image
+                const imagePath = imageConfig.course.pathName + '/' + getCourse[0].course_image
 
                  // Удаление файла
                 fs.unlink(imagePath, function(err) {
@@ -157,30 +156,53 @@ const imageConfig = {
        },
        //не правильно нужно доробото также и user
      async  download(req, res) {
-        const getCoursesSql = 'SELECT course_image FROM course';
-        const getCourses = await query(getCoursesSql)
+        const pathFile = req.params.path
 
-        for (let i = 0; i < getCourses.length; i++) {
-            const coursesImage = getCourses[i].course_image;
+
+           // Получение абсолютного пути к текущей папке
+           const currentDirectory = __dirname;
+    
+           // Получение пути к папке, на одну папку выше текущей
+       const parentDirectory = path.join(currentDirectory, '../storage/course/images');
+   
+       const imagePath = path.join(parentDirectory, pathFile);
+       console.log(imagePath);
+   
+   
+   
+           res.sendFile(imagePath, function(err) {
+           if (err) {
+           console.error('Ошибка отправки файла:', err);
+           res.status(err.status).end();
+           } else {
+           console.log('Файл успешно отправлен на клиент');
+       }
+   });
+
+        // const getCoursesSql = 'SELECT course_image FROM course';
+        // const getCourses = await query(getCoursesSql)
+
+        // for (let i = 0; i < getCourses.length; i++) {
+        //     const coursesImage = getCourses[i].course_image;
             
-                    // Получение абсолютного пути к текущей папке
-                const currentDirectory = __dirname;
+        //             // Получение абсолютного пути к текущей папке
+        //         const currentDirectory = __dirname;
             
-                    // Получение пути к папке, на одну папку выше текущей
-                const parentDirectory = path.join(currentDirectory, '..');
+        //             // Получение пути к папке, на одну папку выше текущей
+        //         const parentDirectory = path.join(currentDirectory, '..');
             
-                const imagePath = path.join(parentDirectory, coursesImage);
+        //         const imagePath = path.join(parentDirectory, coursesImage);
             
-                res.sendFile(imagePath, function(err) {
-                if (err) {
-                console.error('Ошибка отправки файла:', err);
-                res.status(err.status).end();
-                } else {
-                console.log('Файл успешно отправлен на клиент');
-            }
-        });
+        //         res.sendFile(imagePath, function(err) {
+        //         if (err) {
+        //         console.error('Ошибка отправки файла:', err);
+        //         res.status(err.status).end();
+        //         } else {
+        //         console.log('Файл успешно отправлен на клиент');
+        //     }
+        // });
             
-        }
+        // }
      
     
     

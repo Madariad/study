@@ -27,6 +27,6 @@ router.delete('/:id', courseController.deleteCourse);
 
 router.post('/:courseId/upload', imageConfig.course.config(), imageConfig.course.upload);
 
-router.get('/courseId/download', imageConfig.course.download);
+router.get('/img/:path', imageConfig.course.download);
 
 module.exports = router;

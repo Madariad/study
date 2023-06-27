@@ -38,6 +38,6 @@ router.delete('/:userId', UserController.delete);
 
 router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.upload);
 
-router.get('/avatar/download', imageConfig.users.download);
+router.get('/avatar/:path', imageConfig.users.download);
 
 module.exports = router;
