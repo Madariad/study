@@ -2,6 +2,8 @@ const express = require('express');
 const courseController = require('../controllers/CourseController');
 const  UserController = require('../controllers/UserController');
 const imageConfig = require('../utils/multer');
+const videoConfig = require('../utils/video');
+
 
 const router = express.Router();
 
@@ -28,5 +30,11 @@ router.delete('/:id', courseController.deleteCourse);
 router.post('/:courseId/upload', imageConfig.course.config(), imageConfig.course.upload);
 
 router.get('/img/:path', imageConfig.course.download);
+
+
+
+router.post('/upload-video', videoConfig.config(), videoConfig.upload)
+
+router.get('/get-video/:path', videoConfig.download)
 
 module.exports = router;

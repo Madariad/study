@@ -45,6 +45,7 @@ const imageConfig = {
             const tokens = token.split('Bearer ')[1];
             const userId = await  jwtHelpers.getUserId(tokens)
             const filename =  req.file.filename;
+            console.log(req.file);
 
              const userData = await jwtHelpers.getUser(tokens);
 
@@ -128,8 +129,10 @@ const imageConfig = {
              const getCourseSql = 'SELECT course_image FROM courses WHERE course_id = ?';
              const getCourse = await query(getCourseSql, [courseId])
      
-             const filename =  req.file.filename; 
-             console.log(filename); 
+             const {filename} =  req.file; 
+            console.log(req.file);
+
+            //  console.log(req.file.filename); 
 
              if (getCourse[0].course_image !== null) {
                 const imagePath = imageConfig.course.pathName + '/' + getCourse[0].course_image
