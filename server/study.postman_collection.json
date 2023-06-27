@@ -180,6 +180,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getCorses",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -439,6 +447,271 @@
 						"header": []
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload and download",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "uploadAvatar Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/zet_1/Downloads/avatarjpg.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/users/avatar/upload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"avatar",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "download Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/users/avatar/download",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"avatar",
+										"download"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "course",
+					"item": [
+						{
+							"name": "img",
+							"item": [
+								{
+									"name": "uploadAvatar",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/zet_1/Downloads/avatarjpg.jpg"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/course/img/upload",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"course",
+												"img",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "download",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/course/img/:path",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"course",
+												"img",
+												":path"
+											],
+											"variable": [
+												{
+													"key": "path",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "video",
+							"item": [
+								{
+									"name": "uploadAvatar Copy",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/zet_1/Downloads/avatarjpg.jpg"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/course/img/upload",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"course",
+												"img",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "download Copy",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hZGFyYTE5MjlAZ21haWwuY29tIiwiaWF0IjoxNjg3NTQwNjMxfQ.eZ5vXT9Hc8Sr19esclt7uvk37_8dMPIay799v7jmOOI",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/course/img/:path",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"course",
+												"img",
+												":path"
+											],
+											"variable": [
+												{
+													"key": "path",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		},
