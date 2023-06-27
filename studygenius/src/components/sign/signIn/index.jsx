@@ -17,7 +17,7 @@ function signIn() {
           if(token) {
             console.log('jiij');
             
-            navigate('/')
+            window.location.href = "/";
           }
           console.log(logins.data);
         } catch (error) {
@@ -40,7 +40,7 @@ function signIn() {
           if(token) {
             console.log('jiij');
             
-            navigate('/')
+            window.location.href = "/";
           }
           console.log(registers.data);
         } catch (error) {

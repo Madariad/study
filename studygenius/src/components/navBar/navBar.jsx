@@ -81,6 +81,7 @@ function ResponsiveAppBar() {
         },
       });
       localStorage.removeItem('token'); 
+      window.location.href = "/";
       console.log('Logged out successfully');
     } catch (error) {
       console.error(error);
