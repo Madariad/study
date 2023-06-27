@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const query = require('../utils/query');
+const jwtHelpers = require('../utils/jwt');
 
      
 
@@ -238,6 +239,31 @@ try {
   
 
   },
+ async getCourses(token, callback){
+     try {
+      const tokens = token.split('Bearer ')[1];
+      const userId = await jwtHelpers.getUserId(tokens)
+
+      const getCoursesSql = 'SELECT * FROM courses WHERE course_creator_id = ?';
+      const result = await query(getCoursesSql, [userId[0].user_id])
+
+      callback(
+        {
+          status: 'success',
+          message: 'courses this user',
+          corses: result,
+          statusCode: 200,
+        })
+     } catch (error) {
+      callback(
+        {
+          status: 'error',
+          message: error,
+          statusCode: 500,
+        })
+     }
+     
+ },
  async  getById(userId, callback) {
    try {
     const getByIdQuery = 'SELECT * FROM users WHERE user_id = ?';
