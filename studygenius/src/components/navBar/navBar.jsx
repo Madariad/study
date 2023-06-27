@@ -14,7 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import LoginIcon from '@mui/icons-material/Login';
 import { Link, NavLink } from 'react-router-dom'
+import axiosConfig from '../../axiosConfig';
 
 import  ModeToggle  from "../modeToggle/modeToggle";
 
@@ -69,6 +71,21 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const token = localStorage.getItem('token')
+  const handleLogout = async () => {
+    try {
+      await axiosConfig.post('/users/logout', null, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+      localStorage.removeItem('token'); 
+      window.location.href = "/";
+      console.log('Logged out successfully');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   
@@ -155,8 +172,7 @@ function ResponsiveAppBar() {
           >
            studygenius
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  component="a"
-               href='/'>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  >
 
               <Button
                 
@@ -198,7 +214,7 @@ function ResponsiveAppBar() {
               </StyledBadge>
             </IconButton>
           </Tooltip>  
-            : <div>Войти</div>}
+            : <Box component='a' href='/signin'><LoginIcon/></Box>}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -218,6 +234,9 @@ function ResponsiveAppBar() {
           
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Профиль</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={handleLogout}>Выход</Typography>
                 </MenuItem>
             
             </Menu>

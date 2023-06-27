@@ -36,12 +36,30 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+}
+
+.lessons_menu {
+    position: relative;
+    padding-top: 30px;
+    margin-left: 100px;
+}
+
+.lessons_menu_item {
+    position: sticky;
+    top: 0;
+}
+
+.sticky {
+    position: sticky;
+    top: 20px;
 }
 
 .course_img img{
     width: 150px;
     height: 150px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .lessons {
@@ -49,6 +67,8 @@
     color: black;
 }
 
-.lessons_items {
-    color: black;
+.lessons_item {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    max-width: 750px;
 }
