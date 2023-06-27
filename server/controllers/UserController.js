@@ -92,6 +92,23 @@ const UserController = {
       }
     }) 
   },
+  subscribeCourse(req, res){
+      const token = req.headers.authorization;
+      const {courseId} = req.body
+      User.subscribeCourse(courseId, token,  (result) => {
+        if (result.status === 'success') {
+          res.status(result.statusCode)
+          res.json({status: result.status, message: result.message})
+            
+        }else {
+            res.status(result.statusCode)
+            res.json(
+              {status: result.status, 
+               message: result.message
+              })
+        }
+      }) 
+  },
   getById(req, res) {
     const userId = req.params.userId;
 

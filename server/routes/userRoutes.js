@@ -36,6 +36,7 @@ router.delete('/:userId', UserController.delete);
 
 router.get('/courses/all', UserController.getCourses)
 
+router.post('/subscribed/:courseId', UserController.subscribeCourse)
 
 router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.upload);
 

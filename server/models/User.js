@@ -264,6 +264,30 @@ try {
      }
      
  },
+ async subscribeCourse(courseId, token, callback){
+   try {
+    const tokens = token.split('Bearer ')[1];
+    const userId = jwtHelpers.getUserId(tokens)
+
+    const subscribedSql = 'UPDATE users SET subscribed_courses = ? WHERE user_id = ?'
+
+    await query(subscribedSql, [courseId, userId[0].user_id])
+    
+    callback(
+      {
+        status: 'success',
+        message: 'subscribed',
+        statusCode: 200,
+      })
+   } catch (error) {
+    callback(
+      {
+        status: 'error',
+        message: error,
+        statusCode: 500,
+      })
+   }
+ },
  async  getById(userId, callback) {
    try {
     const getByIdQuery = 'SELECT * FROM users WHERE user_id = ?';
