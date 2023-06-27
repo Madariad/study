@@ -7,6 +7,10 @@ import router from '../../../../routes/routes'
 import { useNavigate } from 'react-router-dom'
 
 const CreateCourse = () => {
+    const [createdCourse, setCreatedCourse] = useState({
+        id: 7,
+        title: 'hello'
+    })
     const [courseName, setCourseName] = useState('')
     const [error, setError] = useState('')
 
@@ -18,7 +22,7 @@ const CreateCourse = () => {
             const link = document.createTextNode('This is link')
             a.appendChild(link)
             a.title = 'this is link'
-            a.href = '/courses/22/syllabus'
+            a.href = `/courses/${createdCourse.id}/syllabus`
             a.click()
             useNavigate('/dsfg')
         } else {

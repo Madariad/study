@@ -1,3 +1,4 @@
+import Edit from '../components/teaching/components/pages/syllabus/Edit/Edit';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Catalog from "../components/catalog/index";
@@ -28,6 +29,11 @@ const SidebarRouter = createBrowserRouter([
     {
       path: '/courses/:id/syllabus',
       element: <Syllabus/>,
+      errorElement: <ErrorRoutePages/>
+    },
+    {
+      path: '/courses/:id/edit',
+      element: <Edit/>,
       errorElement: <ErrorRoutePages/>
     }
     // {

@@ -83,16 +83,22 @@ function ResponsiveDrawer(props) {
   // }, [isCreating])
 
   const isCreating = JSON.parse(localStorage.getItem('isCreating'))
-  const creatingName = JSON.parse(localStorage.getItem('creating-name'))
+  let creatingName = JSON.parse(localStorage.getItem('creating-name'))
+  const teachingCourseId = JSON.parse(localStorage.getItem('teachingCourseId'))
 
-  const pattern = '/teach/courses/(.*)'
+  setInterval(() => {
+    creatingName = JSON.parse(localStorage.getItem('creating-name'))
+  }, 500);
+
+  const creatingNameFinished = React.useMemo(() => {
+    return creatingName
+  }, [creatingName])
+  console.log(creatingNameFinished)
+
+  const pattern = '/teach/courses(.*)'
   const regex = pathToRegexp(pattern)
   const match = regex.exec(router.state.location.pathname);
   console.log(match)
-  if (match) {
-    localStorage.removeItem('isCreating')
-    localStorage.removeItem('creating-name')
-  }
 
 // accordion
   const [expanded, setExpanded] = React.useState('');
@@ -106,14 +112,14 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        {isCreating && creatingName ? 
+        {!match ? 
            <div>
             <ListItem disablePadding>
         <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/'}>
               <ListItemIcon>
                 
               </ListItemIcon>
-              <ListItemText primary={creatingName} />
+              <ListItemText primary={creatingNameFinished} />
         </ListItemButton>
       </ListItem>
              <ListItem disablePadding>
@@ -133,7 +139,7 @@ function ResponsiveDrawer(props) {
             <a href="/courses/description">Описание</a>
           </div>
           <div>
-            <a href="/courses/22/syllabus">Содержание</a>
+            <a href={`/courses/${teachingCourseId}/syllabus`}>Содержание</a>
           </div>
           <div>
             <a href="/courses/check">Чек</a>

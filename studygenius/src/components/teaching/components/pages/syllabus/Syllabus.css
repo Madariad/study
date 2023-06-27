@@ -4,3 +4,14 @@
   align-items: center;
   gap: 60px;
 }
+
+.module__row {
+  
+}
+
+
+.module-item {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-left: 6px solid #ccc;
+}

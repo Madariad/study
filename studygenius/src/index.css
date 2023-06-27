@@ -9,7 +9,7 @@ html{
 
 }
 
-ul {
+ul, li {
   list-style-type: none;
 }
 
@@ -42,4 +42,13 @@ a {
 /* Track on hover */
 ::-webkit-scrollbar-track:hover {
   background: #ddd; /* Set the desired track background color on hover */
+}
+
+.form-row {
+  display: flex;
+  gap: 50px;
+}
+
+.form-group {
+  margin-bottom: 15px;
 }
