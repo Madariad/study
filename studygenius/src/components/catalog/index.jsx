@@ -8,6 +8,7 @@ import Checkbox from "./components/checkbox/index";
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container'
+import Banner from './components/banner/index'
 
 // import { useEffect } from "react";
 
@@ -43,12 +44,15 @@ function Catalog() {
   const classes = useStyles();
 
   return (
-
+    <>
+ <Box component='div' sx={{paddingTop: '58px'}}>
+      <Banner />
+  </Box>
    <Container maxWidth="lg" sx={{marginTop: '100px'}}>
 
 
     <div>
-      <div className={classes.search}>
+      {/* <div className={classes.search}>
         <Grid container spacing={2} alignItems="center" justifyContent="space-evenly">
           <Grid item xs={12} sm={5} md={3} >
            
@@ -72,7 +76,7 @@ function Catalog() {
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
       <div className={classes.tab}>
         <Tab />
       </div>
@@ -81,6 +85,7 @@ function Catalog() {
       </div>
     </div>
     </Container>
+    </>
   );
 }
 
