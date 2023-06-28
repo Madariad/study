@@ -82,13 +82,23 @@ function ResponsiveDrawer(props) {
   //   console.log(isCreating)
   // }, [isCreating])
 
-  const isCreating = JSON.parse(localStorage.getItem('isCreating'))
-  let creatingName = JSON.parse(localStorage.getItem('creating-name'))
-  const teachingCourseId = JSON.parse(localStorage.getItem('teachingCourseId'))
+  let [creatingName, setCreatingName] = React.useState(JSON.parse(localStorage.getItem('creating-name')) || '');
+  React.useEffect(() => {
+    const handleStorageChange = (e) => {
+      console.log('storage')
+      if (e.key == 'creating-name') {
+        setCreatingName(e.newValue)
+      }
+    }
+    document.addEventListener('storage', handleStorageChange)
 
-  setInterval(() => {
-    creatingName = JSON.parse(localStorage.getItem('creating-name'))
-  }, 500);
+    return () => {
+      document.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
+  console.log(creatingName)
+  const isCreating = JSON.parse(localStorage.getItem('isCreating'))
+  const teachingCourseId = JSON.parse(localStorage.getItem('teachingCourseId'))
 
   const creatingNameFinished = React.useMemo(() => {
     return creatingName
@@ -115,15 +125,21 @@ function ResponsiveDrawer(props) {
         {!match ? 
            <div>
             <ListItem disablePadding>
+            <img src={'https://placehold.co/600x400/EEE/31343C'} width={150} style={{border: '1px solid', margin: 'auto'}}/>
+            </ListItem>
+            <ListItem disablePadding>
+            <p style={{ margin: 'auto'}}>{creatingNameFinished}</p>
+            </ListItem>
+        <ListItem disablePadding>
         <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/'}>
               <ListItemIcon>
-                
+                <ArrowBackIcon/>
               </ListItemIcon>
-              <ListItemText primary={creatingNameFinished} />
+              <ListItemText primary={'На главную страницу'} />
         </ListItemButton>
       </ListItem>
-             <ListItem disablePadding>
-        <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/'}>
+      <ListItem disablePadding>
+        <ListItemButton onClick={e => localStorage.setItem('isCreating', false)}  components={NavLink} to={'/teach/courses'}>
               <ListItemIcon>
                 <ArrowBackIcon/>
               </ListItemIcon>
@@ -136,7 +152,7 @@ function ResponsiveDrawer(props) {
         </AccordionSummary>
         <AccordionDetails style={{paddingLeft: '40px'}}>
           <div>
-            <a href="/courses/description">Описание</a>
+            <a href={`/courses/${teachingCourseId}/description`}>Описание</a>
           </div>
           <div>
             <a href={`/courses/${teachingCourseId}/syllabus`}>Содержание</a>
@@ -179,7 +195,7 @@ function ResponsiveDrawer(props) {
               <ListItemIcon>
                 <ArrowBackIcon/>
               </ListItemIcon>
-              <ListItemText primary={'Назад'} />
+              <ListItemText primary={'На главную страницу'} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>

@@ -1,0 +1,14 @@
+.description {
+  border: 1px solid #CCc;
+  padding: 20px;
+  flex: 1;
+}
+
+.description-wrapper {
+  display: flex;
+}
+
+.short-description {
+  border: 1px solid #ccc;
+  padding: 10px;
+}

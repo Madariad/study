@@ -97,7 +97,7 @@ const Syllabus = () => {
     return (
         <>
             <h2>Программа курса</h2>
-            <Button href="/courses/22/edit" variant="contained" color="success">Редактировать содержание</Button>
+            <Button href={`/courses/${params.id}/edit`} variant="contained" color="success">Редактировать содержание</Button>
             <section className="module section-padding">
                 <ul className="module__row">
                         {currentCourseLessons.map((lesson, index) => 

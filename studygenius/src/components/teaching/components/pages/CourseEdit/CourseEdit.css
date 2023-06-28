@@ -1,0 +1,27 @@
+.course-images {
+  display: flex;
+  justify-content: space-between;
+}
+
+.course-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.img-area {
+  position: relative;
+}
+
+.img-area::after {
+  content: attr(data-img);
+  position: absolute;
+  display: block;
+  inset: 0;
+  background: transparent;
+  width: 100%;
+}
+
+.form-col {
+  display: flex;
+  flex-direction: column;
+}
