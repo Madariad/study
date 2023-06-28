@@ -1,24 +1,40 @@
-import * as React from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import SearchIcon from '@mui/icons-material/Search';
 
-export default function ComboBox() {
+const ComboBox = () => {
+  const options = [
+    { label: 'React', year: 2013 },
+    { label: 'Vue', year: 2014 },
+    { label: 'Kotlin', year: 2011 },
+    { label: 'Java', year: 1995 },
+    { label: 'JavaScript', year: 1995 },
+  ];
+
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
-      options={top100Films}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Курсы" />}
+      options={options}
+      sx={{ width: "70%" }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Курсы"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {params.InputProps.endAdornment}
+                <SearchIcon sx={{cursor: 'pointer'}} />
+              </>
+            ),
+          }}
+        />
+      )}
     />
   );
-}
+};
 
-
-const top100Films = [
-  { label: 'React', year: 2013 },
-  { label: 'Vue', year: 2014 },
-  { label: 'Kotlin', year: 2011 },
-  { label: 'Java', year: 1995 },
-  { label: 'JavaScript', year: 1995 },
-];
+export default ComboBox;

@@ -42,4 +42,6 @@ router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.uplo
 
 router.get('/avatar/:path', imageConfig.users.download);
 
+
+
 module.exports = router;

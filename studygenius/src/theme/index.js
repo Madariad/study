@@ -15,6 +15,12 @@ const lightTheme = createTheme({
       },
       searchInputColor: {
         main: '#696969'
+      },
+      cardColor: {
+        main: '#add6ff'
+      },
+      cardBtnColor: {
+        main: '#6c6'
       }
       // остальные свойства цветов
     },
@@ -34,6 +40,12 @@ const lightTheme = createTheme({
       },
       searchInputColor: {
         main: '#9370DB'
+      },
+      cardColor: {
+        main: '#e9b0cf'
+      },
+      cardBtnColor: {
+        main: '#3e9f8d'
       }
       // остальные свойства цветов
     },

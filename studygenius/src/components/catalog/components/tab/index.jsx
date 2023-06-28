@@ -113,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
 
     
     <Box sx={{ width: '100%', typography: 'body1' }}>
-        <Typography variant="h1" color="primary">онлайн курсы 🧠</Typography>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -156,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
             <Grid container spacing={2}>
                 {courseList !== null ? courseList.map((course) => ( 
     <Grid item xs={12} sm={6} md={4} key={course.course_id}>
-      <Card description={course.course_description} name={course.course_name} id={course.course_id}/>         
+      <Card description={course.course_description} name={course.course_name} id={course.course_id} img={course.course_image }/>         
     </Grid>)) : <div>Loading</div>}
             </Grid>
 

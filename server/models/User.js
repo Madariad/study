@@ -264,30 +264,46 @@ try {
      }
      
  },
- async subscribeCourse(courseId, token, callback){
-   try {
+ async subscribeCourse(courseId, token, callback) {
+  try {
     const tokens = token.split('Bearer ')[1];
-    const userId = jwtHelpers.getUserId(tokens)
+    const userId = await jwtHelpers.getUserId(tokens);
+    console.log(userId);
 
-    const subscribedSql = 'UPDATE users SET subscribed_courses = ? WHERE user_id = ?'
+    const userSql = 'SELECT subscribed_courses FROM users WHERE user_id = ?';
+    const subscribedSql = 'UPDATE users SET subscribed_courses = ? WHERE user_id = ?';
 
-    await query(subscribedSql, [courseId, userId[0].user_id])
-    
-    callback(
-      {
-        status: 'success',
-        message: 'subscribed',
-        statusCode: 200,
-      })
-   } catch (error) {
-    callback(
-      {
-        status: 'error',
-        message: error,
-        statusCode: 500,
-      })
-   }
- },
+    const [userResult] = await query(userSql, [userId]);
+    console.log(userResult[0]);
+    const subscribedCourses = userResult[0].subscribed_courses;
+
+    // Разбиваем текущий список подписанных курсов на массив чисел
+    const subscribedCourseIds = !subscribedCourses === null ? subscribedCourses.split(',').map(Number) : [];
+    console.log('dddddddddddddddddddddddddddddddddd');
+    console.log(subscribedCourseIds);
+
+    // Добавляем новый курс в список подписанных курсов, если его идентификатор еще не присутствует в списке
+    if (!subscribedCourseIds.includes(courseId)) {  
+      subscribedCourseIds.push(courseId);
+    }
+
+    // Обновляем базу данных с обновленным списком подписанных курсов
+    await query(subscribedSql, [subscribedCourseIds.join(','), userId[0].user_id]);
+
+    callback({
+      status: 'success',
+      message: 'subscribed',
+      statusCode: 200,
+    });
+  } catch (error) {
+    callback({
+      status: 'error',
+      message: error,
+      statusCode: 500,
+    });
+  }
+},
+
  async  getById(userId, callback) {
    try {
     const getByIdQuery = 'SELECT * FROM users WHERE user_id = ?';

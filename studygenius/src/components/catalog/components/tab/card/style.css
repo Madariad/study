@@ -45,7 +45,7 @@ img {
   text-transform: uppercase;
   border-radius: 4px;
   font-weight: 400;
-  background-color: #6c6;
+  /* background-color: #6c6; */
   display: block;
   width: 100%;
   cursor: pointer;
@@ -70,10 +70,10 @@ img {
   padding: 1rem;
 }
 
-@media (min-width: 40rem) {
-  .cards_item {
-    width: 50%;
-  }
+@media (min-width: 40rem){
+.cards_item {
+    width: 100%;
+}
 }
 
 @media (min-width: 56rem) {
@@ -89,11 +89,12 @@ img {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: #ffffff 2px solid;
 }
 
 .card_content {
   padding: 1rem;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
 }
 
 .card_title {
@@ -119,5 +120,8 @@ img {
   margin-bottom: 1.25rem;    
   font-weight: 700;
 }
+.card_image {
 
+   height: 150px;
+}
 

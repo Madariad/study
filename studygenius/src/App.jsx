@@ -15,6 +15,8 @@ import Container from '@mui/material/Container'
 import ResponsiveDrawer from './components/drawer/ResponsiveDrawer';
 import TeachingPage from './pages/teaching-page/TeachingPage';
 import SidebarRouter from './routes/SidebarRouter';
+import EducationPage from "./pages/education-page";
+import ErrorRoutePages from "./components/ErrorRoutePages/index";
 
 
 
@@ -23,9 +25,12 @@ function App() {
   const startsWith = (str, prefix) => {
     return str.indexOf(prefix) === 0
   }
+  console.log(router.state.location.pathname);
   const mode = useSelector((state) => state.theme.mode);
   const theme = mode === 'light' ? lightTheme : darkTheme;
-
+  if (startsWith(router.state.location.pathname, '/education') ) {
+    return <EducationPage />;
+  }
   return (
     <ThemeProvider theme={theme}> 
       <CssBaseline />

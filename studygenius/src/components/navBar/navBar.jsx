@@ -175,11 +175,22 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}  >
 
               <Button
+               component="a"
+               href='/'
                 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Каталог
+              </Button>
+              <Button
+               component="a"
+               href='/education'
+                
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                мое обучения
               </Button>
               <Button
               component="a"

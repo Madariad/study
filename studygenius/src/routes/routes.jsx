@@ -7,6 +7,8 @@ import SignIn from "../components/sign/signIn/index"
 
 import ErrorRoutePages from "../components/ErrorRoutePages/index";
 import TeachingPage from '../pages/teaching-page/TeachingPage';
+import EducationPage from "../pages/education-page/index";
+
 
 const router = createBrowserRouter([
     {
@@ -22,7 +24,13 @@ const router = createBrowserRouter([
     },
     {
 
-      path: "/:courseId/courses",
+      path: '/education',
+      element: <EducationPage/>,
+      errorElement: <ErrorRoutePages/>
+    },
+    {
+
+      path: "/:courseId/course",
       element: <Course/> ,
       errorElement: <ErrorRoutePages/>,
     },
@@ -36,7 +44,7 @@ const router = createBrowserRouter([
       element: <SignIn/> ,
       errorElement: <ErrorRoutePages />
     },
-
+     
     // {
     //   path: "/objectInfo",
     //   element: ,

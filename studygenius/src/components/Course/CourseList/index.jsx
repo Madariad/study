@@ -6,22 +6,12 @@ import Button from '@mui/material/Button';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useParams } from 'react-router-dom';
 import DoneIcon from '@mui/icons-material/Done';
+import axiosConfig from "../../../axiosConfig";
 
 function CourseList() {
     const {courseId} = useParams()
         console.log(courseId)
     const dispath = useDispatch()
-        useEffect(() => {
-            function ass() {
-
-        dispath({type: 'GET_LESSONS', courseId: courseId})
-            }
-            ass()
-        }, [dispath, courseId])
-
-
-        const lessons = useSelector((state) => state.lessons.lessonsList)
-        console.log(lessons);
         
         
         useEffect(() => {
@@ -30,27 +20,38 @@ function CourseList() {
         const courseList = useSelector((state) => state.course.cours);
         console.log(courseList)
         const [open, setOpen] = React.useState(true);
+        console.log(courseList);
   
     const handleClick = () => {
       setOpen(!open);
     };
+    const  handleEnroll = async () => {
+        const res =   await axiosConfig.post(`users/subscribed/${courseId}`)
+        console.log(res);
+        console.log('поступит на курс');
+    }
     return (
         <div className="course">
             
             <div className="course_items">
             <div className="course_container">
                     {courseList !== null ? courseList.map((course, i) => (
-                        <div className="course_item" key={i}>
+                      <>
+                         <div className="">
+                            <div className="course_item" key={i}>
                             <div className="course_title">{course.course_name}</div>
                             <div className="course_description">{course.course_description}</div>
                         </div>
-                    )) : <div>Loading</div>}
+                       </div>
+                    
 
                 <div className="course_item">
                     <div className="course_img">
-                        <img src="../../../../../../public/img/react.png"/>
+                        <img src={courseList[0].course_image === null ? "../../../../../../public/img/react.png" : `http://localhost:5000/api/v1/course/img/${courseList[0].course_image}`}/>
                     </div>
                 </div>
+                      </>
+                )) : <div>Loading</div>}
             </div>
             </div>
             <div className="lessons">
@@ -95,8 +96,8 @@ function CourseList() {
                         <div className="lessons_menu">
                             <div className="lessons_menu_item sticky">
                                 <h3 style={{color: "green"}}>Бесплатно</h3><br />
-                                <Button variant="contained" style={{width: "300px", height: "50px"}}>Купить</Button> <br /><br />
-                                <Button variant="outlined" style={{width: "300px", height: "50px"}}> <FavoriteBorderIcon /> Пройти курс</Button>
+                                <Button variant="contained" style={{width: "300px", height: "50px"}} onClick={handleEnroll}>Поступить на курс</Button> <br /><br />
+                                <Button variant="outlined" style={{width: "300px", height: "50px"}}> <FavoriteBorderIcon /> добавить в избранное</Button>
                             </div>
                         </div>
                     </div>
