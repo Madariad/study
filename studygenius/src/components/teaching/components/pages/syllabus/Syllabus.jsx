@@ -7,6 +7,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from "react-router-dom";
+import axiosConfig from '../../../../../axiosConfig'
+import axios from "axios";
 
 const useStyles = makeStyles({
     root: {
@@ -28,71 +30,47 @@ const useStyles = makeStyles({
 const Syllabus = () => {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
-    const [lessons, setLessons] = useState([
-        {
-            teacherCourseId: 1,
-            moduleId: 22,
-            title: 'new module',
-            description: 'module description',
-            sublesson: [
-                {
-                    title: 'sublesson for new module'
-                }
-            ],
-            courseTitle: 'my first course'
-        },
-        {
-            teacherCourseId: 2,
-            moduleId: 22,
-            title: '2 module',
-            description: 'module description',
-            sublesson: [
-                {
-                    title: 'sublesson for new module'
-                }
-            ],
-            courseTitle: 'my second course'
-        },
-        {
-            teacherCourseId: 3,
-            moduleId: 22,
-            title: '3 module',
-            description: 'module description',
-            sublesson: [
-                {
-                    title: 'sublesson for new module'
-                }
-            ],
-            courseTitle: 'my finished course'
-        },
-    ])
+    const [lessons, setLessons] = useState(null)
 
     // get current course's lessons
     const params = useParams()
-    console.log(params)
-    const currentCourseLessons = useMemo(() => {
-        return [...lessons].filter(module => params.id == module.teacherCourseId)
-    })
 
     useEffect(() => {
-        if (currentCourseLessons) {
-            currentCourseLessons.map((lesson) => {
-                localStorage.setItem('creating-name', JSON.stringify(lesson.courseTitle))
+        const getLessons = async () => {
+            try {
+                const data = await axiosConfig.get(`course/${params.id}/lessons`)
+                setLessons(data.data.lessons)
+                console.log(data)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+        getLessons()
+    }, [])
+
+    const currentCourseLessons = useMemo(() => {
+        if (lessons) {
+            return [...lessons].filter(module => params.id == module.teacherCourseId)
+        }
+    }, [lessons])
+
+    useEffect(() => {
+        if (lessons) {
+            lessons.map((lesson) => {
+                localStorage.setItem('creating-name', JSON.stringify(lesson.course_name))
                 localStorage.setItem('teachingCourseId', JSON.stringify(params.id))
             })
         }
-    }, [currentCourseLessons])
+    }, [lessons])
 
-    if (!currentCourseLessons.length) {
-        return (
-            <section className="syllabus">
-                <p>В курсе пока что нет ни одного урока
-                    Создайте первый модуль чтобы добавить уроки
-                </p>
-                <Button href={`/courses/${params.id}/edit`} variant="contained" color="success">Создать</Button>
-            </section>
-        )
-    }
+    useEffect(() => {
+        if (lessons) {
+            
+        }
+    }, [lessons])
+
+
+    
 
     return (
         <>
@@ -100,17 +78,33 @@ const Syllabus = () => {
             <Button href={`/courses/${params.id}/edit`} variant="contained" color="success">Редактировать содержание</Button>
             <section className="module section-padding">
                 <ul className="module__row">
-                        {currentCourseLessons.map((lesson, index) => 
-                        <li key={lesson.title}>
-                            <Card className={classes.root} variant="outlined">
-                            <CardContent>
-                              <Typography variant="h5" component="h2">
-                                {(index + 1) + '. ' + lesson.title}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </li>
-                        )}
+                        {lessons && 
+                            lessons.map((lesson, index) => {
+                                if (!lesson.lesson_title) {
+                                    return (
+                                        <section className="syllabus">
+                                            <p>В курсе пока что нет ни одного урока
+                                                Создайте первый модуль чтобы добавить уроки
+                                            </p>
+                                            <Button href={`/courses/${params.id}/edit`} variant="contained" color="success">Создать</Button>
+                                        </section>
+                                    )
+                                } else {
+                                    return (
+                                        <li key={lesson.lesson_id}>
+                                            <Card className={classes.root} variant="outlined">
+                                            <CardContent>
+                                              <Typography variant="h5" component="h2">
+                                                {(index + 1) + '. ' + lesson.lesson_title}
+                                              </Typography>
+                                            </CardContent>
+                                          </Card>
+                                        </li>
+                                    )
+                                }
+                            })
+                            
+                            }
                 </ul>
             </section>
         </>

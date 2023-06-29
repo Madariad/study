@@ -96,9 +96,11 @@ function ResponsiveDrawer(props) {
       document.removeEventListener('storage', handleStorageChange)
     }
   }, [])
+  
   console.log(creatingName)
   const isCreating = JSON.parse(localStorage.getItem('isCreating'))
   const teachingCourseId = JSON.parse(localStorage.getItem('teachingCourseId'))
+  const img = JSON.parse(localStorage.getItem('img'))
 
   const creatingNameFinished = React.useMemo(() => {
     return creatingName
@@ -151,14 +153,14 @@ function ResponsiveDrawer(props) {
           <Typography>Курс</Typography>
         </AccordionSummary>
         <AccordionDetails style={{paddingLeft: '40px'}}>
-          <div>
-            <a href={`/courses/${teachingCourseId}/description`}>Описание</a>
+          <div >
+            <a style={{border: '1px solid', padding: '10px', display: 'block'}} href={`/courses/${teachingCourseId}/description`}>Описание</a>
+          </div>
+          <div >
+            <a style={{border: '1px solid', padding: '10px', display: 'block'}} href={`/courses/${teachingCourseId}/syllabus`}>Содержание</a>
           </div>
           <div>
-            <a href={`/courses/${teachingCourseId}/syllabus`}>Содержание</a>
-          </div>
-          <div>
-            <a href="/courses/check">Чек</a>
+            <a style={{border: '1px solid', padding: '10px', display: 'block'}} href="/courses/check">Чек</a>
           </div>
         </AccordionDetails>
       </Accordion>
