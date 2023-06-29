@@ -1,0 +1,21 @@
+.course-edit__item {
+    border: 1px solid;
+    padding: 15px;
+    border-left: 5px solid;
+    padding-left: 50px;
+}
+
+.course-edit-subcard {
+    padding: 10px;
+    gap: 10px;
+    border: 1px solid;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.course-edit-subcard div {
+    display: flex;
+    gap: 15px;
+}

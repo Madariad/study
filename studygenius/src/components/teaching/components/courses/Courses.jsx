@@ -8,9 +8,9 @@ import { useMemo, useState } from 'react';
 
 const Courses = () => {
     const [courses, setCourses] = useState([
-      {title: 'my first course'},
-      {title: 'my next course'},
-      {title: 'my finished course'}
+      {id: 1, title: 'my first course'},
+      {id: 2, title: 'my next course'},
+      {id: 3, title: 'my finished course'}
     ])
     const [searchInput, setSearchInput] = useState('')
 
@@ -19,6 +19,10 @@ const Courses = () => {
         return course.title.toLowerCase().includes(searchInput.toLowerCase())
       })
     }, [searchInput])
+
+    useMemo(() => {
+      localStorage.setItem('teach-courses', JSON.stringify(courses))
+    }, [courses])
 
     return (
       <>

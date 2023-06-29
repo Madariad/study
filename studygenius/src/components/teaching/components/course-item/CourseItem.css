@@ -98,3 +98,18 @@ course-teacher-card__tools {
 .course-teacher-card__tool-elements button:hover {
   background-color: lightgreen;
 }
+
+@media screen and (max-width:460px) {
+  .course-teacher-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .course-teacher-card__tools {
+    align-self: flex-end;
+    margin-right: 50px;
+  }
+  .course-teacher-card__content {
+    display: flex;
+    flex-direction: column;
+  }
+}
