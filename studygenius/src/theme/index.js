@@ -21,6 +21,9 @@ const lightTheme = createTheme({
       },
       cardBtnColor: {
         main: '#6c6'
+      },
+      colorText: {
+        main: 'black'
       }
       // остальные свойства цветов
     },
@@ -46,6 +49,9 @@ const lightTheme = createTheme({
       },
       cardBtnColor: {
         main: '#3e9f8d'
+      },
+      colorText: {
+        main: 'white'
       }
       // остальные свойства цветов
     },

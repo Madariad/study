@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { CreatingContext } from '../../../../context'
 import router from '../../../../routes/routes'
 import { useNavigate } from 'react-router-dom'
+import axiosConfig from "../../../../axiosConfig";
 
 const CreateCourse = () => {
     const [createdCourse, setCreatedCourse] = useState({
@@ -14,17 +15,30 @@ const CreateCourse = () => {
     const [courseName, setCourseName] = useState('')
     const [error, setError] = useState('')
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
+        e.preventDefault()
         if (courseName) {
-            localStorage.setItem('isCreating', true); 
-            localStorage.setItem('creating-name', JSON.stringify(courseName)); 
-            const a = document.createElement('a')
-            const link = document.createTextNode('This is link')
-            a.appendChild(link)
-            a.title = 'this is link'
-            a.href = `/courses/${createdCourse.id}/syllabus`
-            a.click()
-            useNavigate('/dsfg')
+            const res =  await axiosConfig.post('/course/create', 
+            {
+                course_name: courseName,
+                course_language: 'Rasshan',
+                course_topic: 'React',
+                course_description: 'sdsdsd'
+            })
+             if (res.data.status === 'success') {
+                
+                 console.log(res);
+                 localStorage.setItem('isCreating', true); 
+                 localStorage.setItem('creating-name', JSON.stringify(courseName)); 
+                 const a = document.createElement('a')
+                 const link = document.createTextNode('This is link')
+                 a.appendChild(link)
+                 a.title = 'this is link'
+                 a.href = `/courses/${createdCourse.id}/syllabus`
+                 a.click()
+             } else {
+                console.log('sssssssssssssssssssssssssssssss');
+             }
         } else {
             setError('Курс не может быть без имени')
         } 

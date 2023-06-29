@@ -16,12 +16,12 @@ import Container from '@mui/material/Container'
 import ResponsiveDrawer from './components/drawer/ResponsiveDrawer';
 import TeachingPage from './pages/teaching-page/TeachingPage';
 import SidebarRouter from './routes/SidebarRouter';
-<<<<<<< HEAD
+
 import EducationPage from "./pages/education-page";
 import ErrorRoutePages from "./components/ErrorRoutePages/index";
-=======
+
 import { CreatingContext } from './context';
->>>>>>> teaching
+
 
 
 

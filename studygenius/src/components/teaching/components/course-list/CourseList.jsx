@@ -1,7 +1,7 @@
 import CourseItem from "../course-item/CourseItem"
 
 const CourseList = ({list}) => {
-  if (!list.length) {
+  if (!list || list.length === 0) {
     return (
       <div>no list</div>
     )

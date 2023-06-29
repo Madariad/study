@@ -3,8 +3,19 @@
   justify-content: space-between;
 }
 
+@media screen and  (max-width: 948px) {
+  .course-images{
+    row-gap: 20px;
+    flex-direction: column;
+  }
+  .prevVid{
+    width: 100%!important;
+  }
+}
+
 .course-col {
   display: flex;
+  /* flex: 0 0 50%; */
   flex-direction: column;
 }
 

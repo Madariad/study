@@ -7,6 +7,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useParams } from 'react-router-dom';
 import DoneIcon from '@mui/icons-material/Done';
 import axiosConfig from "../../../axiosConfig";
+import { Box, Grid } from '@mui/material';
+import { useMediaQuery, Typography } from '@mui/material';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 function CourseList() {
     const {courseId} = useParams()
@@ -34,7 +37,7 @@ function CourseList() {
         <div className="course">
             
             <div className="course_items">
-            <div className="course_container">
+            <Box className="course_container" sx={{padding: '0 20px'}}>
                     {courseList !== null ? courseList.map((course, i) => (
                       <>
                          <div className="">
@@ -52,11 +55,13 @@ function CourseList() {
                 </div>
                       </>
                 )) : <div>Loading</div>}
-            </div>
+            </Box>
             </div>
             <div className="lessons">
-                <div className="lessons_container">
-                    <div className="lessons_items">
+                <Box component={'div'} className="lessons_container" sx={(theme) => ({padding: '0 20px', color: theme.palette.colorText.main, marginBottom: '100px' })}>
+                    <Grid container spacing={2}>
+                         <Grid item xs={12} sm={12} md={6}>
+                         <div className="lessons_items">
                         <div className="lessons_item">
                             <h3>Чему вы научитесь</h3><br />
                             <ul>
@@ -92,7 +97,22 @@ function CourseList() {
                             </p>
                         </div>
                     </div>
-                    <div className="lessons_itemss">
+                         </Grid>
+                         <Grid item xs={12} sm={12}  md={6}>
+                         {useMediaQuery((theme) => theme.breakpoints.down('sm') && theme.breakpoints.down('md'))   ?  
+                         (
+                            <Box sx={(theme) => ({position: 'fixed', bottom: '0px', left: '0px', width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '20px', backgroundColor: 'white', border: '1px black solid' })}>
+                                
+                                 <Box sx={{display: 'flex', alignItems: 'center', columnGap: '20px'}}>
+                                 <Button variant="contained" style={{width: "300px", height: "50px"}} onClick={handleEnroll}>Поступить на курс Бесплатно</Button> <br /><br />
+                               
+                                <FavoriteBorderIcon sx={{width: '50px', height: '50px', backgroundColor: '#c2c2c2', borderRadius: '10px', padding: '10px'}}/> 
+                                
+                                 </Box>
+                            </Box>
+                         ) : (
+
+                         <div className="lessons_itemss">
                         <div className="lessons_menu">
                             <div className="lessons_menu_item sticky">
                                 <h3 style={{color: "green"}}>Бесплатно</h3><br />
@@ -101,7 +121,13 @@ function CourseList() {
                             </div>
                         </div>
                     </div>
-                </div>
+                         )}
+                 
+                         </Grid>
+                    </Grid>
+                   
+                    
+                </Box>
             </div>
         </div>
         // {lessons.map((lesson, index) => (

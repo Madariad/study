@@ -118,7 +118,7 @@ export default function ButtonBases() {
     <>
     <Paper elevation={6} sx={{ boxShadow: '1px 1px 20px rgb(19 123 211)', padding: '24px'}}>
       <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-    <Typography variant="h2" color="primary" padding={'5, 5'}>популярный котегорий</Typography>
+    <Typography variant="h2" color="primary" padding={'5, 5'}>популярный категорий</Typography>
 
       </Box>
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', justifyContent: 'center' }}>

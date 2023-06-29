@@ -94,6 +94,9 @@ const CourseEdit = () => {
           <label htmlFor="desc">Краткое описание</label>
           <TextField id="desc" placeholder="Название курса"/>
         </div>
+        <Button variant="contained" color="primary" sx={{marginTop: '20px'}}>
+           сохранить
+        </Button>
       </section>
     </>
   )

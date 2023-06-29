@@ -19,7 +19,7 @@ const CourseItem = ({item}) => {
                   </div>
                   <div className="course-teacher-card__content">
                     <div className="course-teacher-card__title">
-                      <p>{item.title}</p>
+                      <p>{item.course_name}</p>
                     </div>
                     <a href={`/courses/${item.id}/syllabus`} className='course-teacher-card__main-link'></a>
                     <a href="#" className='course-teacher-card__link'>Information</a>

@@ -85,7 +85,7 @@ function Catalog() {
               <div class="non-student-cta--non-student-cta--2quSb" data-purpose="non-student-cta-body">
                 <h3 class="ud-heading-serif-xl non-student-cta--non-student-cta__header--3xgVp" 
                 data-purpose="non-student-cta-title">Станьте преподавателем</h3>
-                <div class="ud-text-md non-student-cta--non-student-cta__content--3D827">Преподаватели со всего мира обучают миллионы студентов на Udemy. Мы даем вам средства преподавать то, что вы любите.</div>
+                <div class="ud-text-md non-student-cta--non-student-cta__content--3D827">Преподаватели со всего мира обучают миллионы студентов на studygenius. Мы даем вам средства преподавать то, что вы любите.</div>
                 <div class="non-student-cta--ctas-container--1alXW">
                   <div class="non-student-cta--non-student-cta__link--1Ujpk">
                   <Button variant="outlined" size="large">
