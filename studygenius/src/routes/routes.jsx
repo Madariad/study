@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Catalog from "../components/catalog/index";
-import Lessons from "../components/lessons/index";
+import Lessons from "../components/Lesson/LessonList/index";
 import Course from "../components/Course/CourseList/index"
 import SignIn from "../components/sign/signIn/index"
 

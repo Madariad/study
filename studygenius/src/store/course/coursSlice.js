@@ -20,3 +20,4 @@ const courseSlice = createSlice({
 export default courseSlice.reducer
 
 export const {setCourseList, setCours} = courseSlice.actions;
+

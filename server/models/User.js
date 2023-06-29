@@ -268,27 +268,27 @@ try {
   try {
     const tokens = token.split('Bearer ')[1];
     const userId = await jwtHelpers.getUserId(tokens);
-    console.log(userId);
+
 
     const userSql = 'SELECT subscribed_courses FROM users WHERE user_id = ?';
     const subscribedSql = 'UPDATE users SET subscribed_courses = ? WHERE user_id = ?';
 
-    const [userResult] = await query(userSql, [userId]);
-    console.log(userResult[0]);
-    const subscribedCourses = userResult[0].subscribed_courses;
+    const userResult = await query(userSql, [userId[0].user_id]);
+
+
 
     // Разбиваем текущий список подписанных курсов на массив чисел
-    const subscribedCourseIds = !subscribedCourses === null ? subscribedCourses.split(',').map(Number) : [];
-    console.log('dddddddddddddddddddddddddddddddddd');
-    console.log(subscribedCourseIds);
+    const subscribedCourseIds = userResult[0].subscribed_courses === null ? [] : userResult[0].subscribed_courses.split(',').map(Number);
 
-    // Добавляем новый курс в список подписанных курсов, если его идентификатор еще не присутствует в списке
-    if (!subscribedCourseIds.includes(courseId)) {  
-      subscribedCourseIds.push(courseId);
-    }
 
-    // Обновляем базу данных с обновленным списком подписанных курсов
-    await query(subscribedSql, [subscribedCourseIds.join(','), userId[0].user_id]);
+
+// Добавляем новый курс в список подписанных курсов, если его идентификатор еще не присутствует в списке
+if (!subscribedCourseIds.includes(courseId)) {  
+  subscribedCourseIds.push(courseId);
+}
+
+// Обновляем базу данных с обновленным списком подписанных курсов
+await query(subscribedSql, [subscribedCourseIds.join(','), userId[0].user_id]);
 
     callback({
       status: 'success',
@@ -302,6 +302,26 @@ try {
       statusCode: 500,
     });
   }
+},
+async getSubscribeCourse(userId, callback){
+    try {
+      const getSubscribeCourseSql = 'SELECT 	subscribed_courses	FROM  users WHERE user_id = ?'
+      const res = await query(getSubscribeCourseSql, [userId])
+
+      callback({
+        status: 'success',
+        message: 'subscribed',
+        subscribeCourses: res[0].subscribed_courses,
+        statusCode: 200,
+      });
+
+    } catch (error) {
+      callback({
+        status: 'error',
+        message: error,
+        statusCode: 500,
+      });
+    }
 },
 
  async  getById(userId, callback) {
@@ -397,6 +417,32 @@ async  delete(userId, callback) {
           statusCode: 500
         })
     }
+}, 
+async userData(token, callback){
+  const tokens = token.split('Bearer ')[1];
+  const res = await  jwtHelpers.getUserData(tokens)
+   const role = await  jwtHelpers.getUserRole(tokens)
+
+   
+   const subscribedCourses = res[0].subscribed_courses !== null ?  res[0].subscribed_courses.split(',').map(Number) : res[0].subscribed_courses;
+
+  const data = {
+    userId: res[0].user_id,
+    username: res[0].username,
+    role_name: role[0].role_name,
+    email: res[0].email,
+    avatar: res[0].avatar,
+    subscribed_courses: subscribedCourses,
+
+  }
+  callback(
+    {
+      status: 'success',
+      message: 'user delete',
+      userData: data,
+      statusCode: 201
+    })
+  console.log(res); 
 }
 }
 module.exports = User;

@@ -1,6 +1,6 @@
 function TEst() {
     return (
-        <div className="">dfd</div>
+        <div className="">В разработке</div>
     )
 }
 

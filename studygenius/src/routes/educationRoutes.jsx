@@ -7,7 +7,9 @@ import Catalog from "../components/catalog/index";
 
 import ErrorRoutePages from "../components/ErrorRoutePages/index";
 
+import Course from "../components/Course/CourseList/index"
 
+import Favorites from "../pages/education-page/navigation/favorites/index";
 
 
 const educationRouter = createBrowserRouter([
@@ -25,8 +27,19 @@ const educationRouter = createBrowserRouter([
         path: '/education/courses',
         element: <Courses/>,
         errorElement: <ErrorRoutePages/>
-    },  
-   
+    },
+    {
+
+        path: "/:courseId/course",
+        element: <Course/> ,
+        errorElement: <ErrorRoutePages/>,
+      },  
+      {
+
+        path: "/education/favorites",
+        element: <Favorites/> ,
+        errorElement: <ErrorRoutePages/>,
+      },
 
   ]);
 

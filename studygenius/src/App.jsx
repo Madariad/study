@@ -21,11 +21,21 @@ import EducationPage from "./pages/education-page";
 import ErrorRoutePages from "./components/ErrorRoutePages/index";
 
 import { CreatingContext } from './context';
+import { useEffect } from 'react';
+
+import { useDispatch } from "react-redux";
 
 
 
 
 function App() {
+  const dispath = useDispatch()
+  useEffect(() => {
+    function getUserData() {
+      dispath({type: "GET_USERDATA"})
+    }
+    getUserData()
+  }, [])
   // console.log(router.state.location.pathname)
   const startsWith = (str, prefix) => {
     return str.indexOf(prefix) === 0
