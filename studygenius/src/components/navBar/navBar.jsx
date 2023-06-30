@@ -17,6 +17,7 @@ import Badge from '@mui/material/Badge';
 import LoginIcon from '@mui/icons-material/Login';
 import { Link, NavLink } from 'react-router-dom'
 import axiosConfig from '../../axiosConfig';
+import { useSelector } from "react-redux";
 
 import  ModeToggle  from "../modeToggle/modeToggle";
 
@@ -57,6 +58,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const user = useSelector((state) => state.user.userData)
+  console.log(user);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -192,6 +196,8 @@ function ResponsiveAppBar() {
               >
                 мое обучения
               </Button>
+              {user.role_name === 'teachers' && (
+
               <Button
               component="a"
                href='/teach/courses'
@@ -201,6 +207,7 @@ function ResponsiveAppBar() {
               >
                 Преподавание
               </Button>
+              )}
 
 
 
@@ -221,7 +228,7 @@ function ResponsiveAppBar() {
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                   variant="dot"
                 >
-              <Avatar  alt="Remy Sharp" src={avatar}  />
+              <Avatar  alt="Remy Sharp" src={user?.avatar !== null ? `http://localhost:5000/api/v1/users/avatar/${user.avatar}` : avatar}  />
               </StyledBadge>
             </IconButton>
           </Tooltip>  

@@ -32,9 +32,11 @@ function signIn() {
         const email = event.target.email.value;
         const password = event.target.pswd.value;
         const role_name = event.target.role.value; 
+        console.log(username, email, password, role_name);
       
         try {
           const registers = await axiosConfig.post('/users/register', { username, email, password, role_name });
+          console.log(registers);
           localStorage.setItem('token', registers.data.token);
           const token = localStorage.getItem('token')
           if(token) {
@@ -70,7 +72,7 @@ function signIn() {
                         <option value="teachers">Teachers</option>
                         <option value="students">Students</option>
                     </select>
-					<button>Register</button>
+					<button type="submit">Register</button>
 				</form>
 			</div>
 	</div>

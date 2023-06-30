@@ -77,12 +77,14 @@ const User = {
 
               const insertTokenSql = 'INSERT INTO tokens (user_id, token) VALUES (?, ?)';
               await query(insertTokenSql,[userId[0].user_id, token]);
+              const tokens = await query('SELECT token FROM tokens WHERE token = ?', [token])
+              console.log(tokens);
               callback(
                 {
                   status: 'success',
                   statusCode: 200,
                   message: 'regeneration completed successfully',
-                  token: token, 
+                  token: tokens[0].token, 
                 })
 
     

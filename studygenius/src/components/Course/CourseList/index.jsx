@@ -21,7 +21,7 @@ function CourseList() {
     const userData =  useSelector((state) => state.user.userData)
     let isCourseSubscribed = false;
     // const subscribedCourses = userData.subscribed_courses !== null ?  userData.subscribed_courses : [] 
-    if (userData.subscribed_courses !== null) {
+    if (userData.subscribed_courses !== null && Array.isArray(userData.subscribed_courses)) {
         
         for (let i = 0; i < userData.subscribed_courses.length; i++) {
             console.log(userData.subscribed_courses[i]);
@@ -65,8 +65,8 @@ const navigate = useNavigate()
             <Box className="course_container" sx={{padding: '0 20px'}}>
                     {courseList !== null ? courseList.map((course, i) => (
                       <>
-                         <div className="">
-                            <div className="course_item" key={i}>
+                         <div className="" key={course.course_id}>
+                            <div className="course_item">
                             <div className="course_title">{course.course_name}</div>
                             <div className="course_description">{course.course_description}</div>
                         </div>

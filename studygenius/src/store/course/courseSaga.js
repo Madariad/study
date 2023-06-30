@@ -16,7 +16,7 @@ function* getCourseById(action) {
   try {
     const { courseId } = action;
     const cours = yield call(axiosConfig.get, `/course/${courseId}`);
-    console.log('asas', cours); 
+    // console.log('asas', cours); 
     yield put(setCours({ cours: cours.data.course }));
   } catch (error) {
     console.log(error);
