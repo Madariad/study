@@ -1,21 +1,37 @@
 import './style.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DoneIcon from '@mui/icons-material/Done';
 import axiosConfig from "../../../axiosConfig";
 import { Box, Grid } from '@mui/material';
 import { useMediaQuery, Typography } from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import LoadingButton from '@mui/lab/LoadingButton';
 
+// import { useDispatch } from "react-redux";
 function CourseList() {
     const {courseId} = useParams()
-        console.log(courseId)
+    const [iSbutton, setiSbutton] = useState(false)
     const dispath = useDispatch()
+
+    const userData =  useSelector((state) => state.user.userData)
+    let isCourseSubscribed = false;
+    // const subscribedCourses = userData.subscribed_courses !== null ?  userData.subscribed_courses : [] 
+    if (userData.subscribed_courses !== null) {
         
+        for (let i = 0; i < userData.subscribed_courses.length; i++) {
+            console.log(userData.subscribed_courses[i]);
+            if (userData.subscribed_courses[i] == courseId) {
+              isCourseSubscribed = true;
+              break;
+            }
+          }
+    }
+  
         
         useEffect(() => {
             dispath({type: 'GET_COURS', courseId: courseId})
@@ -28,10 +44,19 @@ function CourseList() {
     const handleClick = () => {
       setOpen(!open);
     };
+    
     const  handleEnroll = async () => {
+        setiSbutton(true)
         const res =   await axiosConfig.post(`users/subscribed/${courseId}`)
-        console.log(res);
-        console.log('поступит на курс');
+        if (res.data.status === 'success') {
+            setiSbutton(false)
+            dispath({type: "GET_USERDATA"})
+            
+        }
+    }
+const navigate = useNavigate()
+    const handleChangeCourse = () => {
+        console.log('пройти курс');
     }
     return (
         <div className="course">
@@ -116,7 +141,29 @@ function CourseList() {
                         <div className="lessons_menu">
                             <div className="lessons_menu_item sticky">
                                 <h3 style={{color: "green"}}>Бесплатно</h3><br />
-                                <Button variant="contained" style={{width: "300px", height: "50px"}} onClick={handleEnroll}>Поступить на курс</Button> <br /><br />
+                                {!isCourseSubscribed ? (
+  iSbutton === true ? (
+    <LoadingButton variant="contained" style={{width: "300px", height: "50px"}}>
+      Loading
+    </LoadingButton>
+  ) : (
+    <>
+      <Button variant="contained" style={{width: "300px", height: "50px"}} onClick={handleEnroll}>
+        Поступить на курс
+      </Button>
+      <br /><br />
+    </>
+  )
+) : (
+  <>
+    <Button variant="contained" style={{width: "300px", height: "50px"}} href={`/${courseId}/lessons`} onClick={handleChangeCourse}>
+      Пройти курс
+    </Button>
+    <br /><br />
+  </>
+)}
+
+                                
                                 <Button variant="outlined" style={{width: "300px", height: "50px"}}> <FavoriteBorderIcon /> добавить в избранное</Button>
                             </div>
                         </div>

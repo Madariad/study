@@ -8,6 +8,10 @@ import courseSlice from "./course/coursSlice";
 import lessonsSlice from "./lessons/lessonsSlice";
 import lessonsSaga from "./lessons/lessonsSaga";
 
+import userSlice from "./user/userSlice";
+import userSaga from "./user/userSaga";
+
+
 const sagaMiddleware = createSagaMiddleware()
 
 
@@ -15,7 +19,8 @@ const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
      theme: themeSlice,
      course: courseSlice,
-     lessons: lessonsSlice,   
+     lessons: lessonsSlice, 
+     user: userSlice,  
 });
 
 const store = configureStore({
@@ -28,3 +33,4 @@ const store = configureStore({
 export default store;
 sagaMiddleware.run(courseSaga);
 sagaMiddleware.run(lessonsSaga);
+sagaMiddleware.run(userSaga);

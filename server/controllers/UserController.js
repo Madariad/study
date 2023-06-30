@@ -111,6 +111,22 @@ const UserController = {
         }
       }) 
   },
+  getSubscribeCourse(req, res){
+    const userId = req.params.userId
+    User.getSubscribeCourse(userId, (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message, subscribeCourses: result.subscribeCourses})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
+    }) 
+  },
   getById(req, res) {
     const userId = req.params.userId;
 
@@ -163,6 +179,22 @@ const UserController = {
       }
     });
   },
+  userData(req, res){
+    const token = req.headers.authorization;
+      User.userData(token,  (result) => {
+        if (result.status === 'success') {
+          res.status(result.statusCode)
+          res.json({status: result.status, message: result.message, userData: result.userData })
+            
+        }else {
+            res.status(result.statusCode)
+            res.json(
+              {status: result.status, 
+               message: result.message
+              })
+        }
+      }) 
+  }
 };
 
 module.exports =  UserController;

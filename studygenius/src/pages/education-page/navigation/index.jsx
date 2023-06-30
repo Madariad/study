@@ -23,6 +23,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import educationRoutes from "../../../routes/educationRoutes"
 import { RouterProvider } from 'react-router-dom';
+import Grid from '@mui/material/Grid'
+
 
 
 const drawerWidth = 240;
@@ -69,9 +71,18 @@ function ResponsiveDrawer(props) {
           <Typography>Курсы</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography component={'a'} href='/education/courses'>
-             прохожу
-          </Typography>
+        <Grid container spacing={2} sx={{ backgroundColor: '#f5f5f5', padding: '20px' }}>
+  <Grid item xs={12}>
+    <Typography component={'a'} variant="subtitle1" sx={{ marginLeft: '50px' }} href="/education/courses">
+      Прохожу
+    </Typography>
+  </Grid>
+  <Grid item xs={12}>
+    <Typography component={'a'} variant="subtitle1" sx={{ marginLeft: '50px' }} href="/education/favorites">
+      Избранное
+    </Typography>
+  </Grid>
+</Grid>
         </AccordionDetails>
       </Accordion>
         

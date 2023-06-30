@@ -26,6 +26,8 @@ router.get('/', UserController.getAll);
 // // Получение пользователя по ID
 router.get('/:userId', UserController.getById);
 
+router.get('/get/data', UserController.userData)
+
 // // Обновление пользователя
 router.put('/:userId', UserController.update);
 
@@ -37,6 +39,9 @@ router.delete('/:userId', UserController.delete);
 router.get('/courses/all', UserController.getCourses)
 
 router.post('/subscribed/:courseId', UserController.subscribeCourse)
+
+router.get('/subscribed/:userId', UserController.getSubscribeCourse)
+
 
 router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.upload);
 
