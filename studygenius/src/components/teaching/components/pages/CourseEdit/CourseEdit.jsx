@@ -90,29 +90,29 @@ const CourseEdit =  () => {
 
   const handleClick = async (e) => {
     e.preventDefault()
-
-    const form = document.querySelector('.course-images')
-    const formdata = new FormData(form)
-    const imageFormData =  new FormData()
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    };
-    imageFormData.append('file', formdata.get('file'))
-    // console.log(formdata.get('file'));
-    // console.log(formdata.get('video'));
-
-    const imgss = await axiosConfig.post(`/course/${params.id}/upload`, imageFormData, config)
-    console.log(imgss);
-    const formData = new FormData();
-    formData.append('video', formdata.get('video'));
-    formData.append('id', params.id)
     
     
     try {
-      const response = await axiosConfig.post(`/course/upload-video`, formData, config);
-      console.log(response.data);
+      
+          const form = document.querySelector('.course-images')
+          const formdata = new FormData(form)
+          const imageFormData =  new FormData()
+          const config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          };
+          imageFormData.append('file', formdata.get('file'))
+          // console.log(formdata.get('file'));
+          // console.log(formdata.get('video'));
+      
+          const imgss = await axiosConfig.post(`/course/${params.id}/upload`, imageFormData, config)
+          console.log(imgss);
+          const formData = new FormData();
+          formData.append('video', formdata.get('video'));
+          formData.append('id', params.id)
+      // const response = await axiosConfig.post(`/course/upload-video`, formData, config);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
