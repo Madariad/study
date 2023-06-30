@@ -129,8 +129,8 @@ const imageConfig = {
              const getCourseSql = 'SELECT course_image FROM courses WHERE course_id = ?';
              const getCourse = await query(getCourseSql, [courseId])
      
-             const {filename} =  req.file; 
-            console.log(req.file);
+             console.log(req.file);
+             const filename =  req.file.filename; 
 
             //  console.log(req.file.filename); 
 

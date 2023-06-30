@@ -15,7 +15,7 @@ const CourseItem = ({item}) => {
     <li className='course-teacher__list-col'>
                 <div className="course-list__item course-teacher-card">
                   <div className="course-teacher-card__img">
-                    <img src="https://placehold.co/600x400/EEE/31343C" alt="" />
+                    <img src={item.course_image === null ? "https://placehold.co/600x400/EEE/31343C" : `http://localhost:5000/api/v1/course/img/${item.course_image}`} alt="" />
                   </div>
                   <div className="course-teacher-card__content">
                     <div className="course-teacher-card__title">
