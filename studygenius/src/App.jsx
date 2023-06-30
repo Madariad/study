@@ -19,6 +19,7 @@ import SidebarRouter from './routes/SidebarRouter';
 
 import EducationPage from "./pages/education-page";
 import ErrorRoutePages from "./components/ErrorRoutePages/index";
+import Lesson from "./pages/lesson-page/index";
 
 import { CreatingContext } from './context';
 import { useEffect } from 'react';
@@ -43,11 +44,15 @@ function App() {
   const startsWith = (str, prefix) => {
     return str.indexOf(prefix) === 0
   }
-  console.log(router.state.location.pathname);
+  // console.log(router.state.location.pathname);
   const mode = useSelector((state) => state.theme.mode);
   const theme = mode === 'light' ? lightTheme : darkTheme;
   if (startsWith(router.state.location.pathname, '/education') ) {
     return <EducationPage />;
+  }
+  if (/^\/.+\/lessons/.test(router.state.location.pathname)) {
+    console.log(router.state.location.pathname);
+    return <Lesson />;
   }
   return (
     <ThemeProvider theme={theme}> 

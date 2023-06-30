@@ -28,6 +28,8 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import router from '../../routes/routes';
 import { pathToRegexp } from 'path-to-regexp';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -69,6 +71,7 @@ const drawerWidth = 240;
 function ResponsiveDrawer(props) { 
     // const navigate = useNavigate()
   const { window } = props;
+  const params = useParams()
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -119,6 +122,17 @@ function ResponsiveDrawer(props) {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const dispath = useDispatch()
+  console.log(teachingCourseId);
+
+  useEffect(() => {
+    dispath({type: 'GET_COURS', courseId: teachingCourseId})
+}, [dispath, teachingCourseId])
+const courseList = useSelector((state) => state.course.cours);
+console.log(courseList)
+
+
+
   const drawer = (
     <div>
       <Toolbar />
@@ -127,7 +141,7 @@ function ResponsiveDrawer(props) {
         {!match ? 
            <div>
             <ListItem disablePadding>
-            <img src={'https://placehold.co/600x400/EEE/31343C'} width={150} style={{border: '1px solid', margin: 'auto'}}/>
+            <img src={courseList && courseList[0].course_image !== null ? `http://localhost:5000/api/v1/course/img/${courseList[0].course_image}` : "https://placehold.co/600x400/EEE/31343C"} width={150} style={{border: '1px solid', margin: 'auto'}}/>
             </ListItem>
             <ListItem disablePadding>
             <p style={{ margin: 'auto'}}>{creatingNameFinished}</p>

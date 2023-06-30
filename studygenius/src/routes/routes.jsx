@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Catalog from "../components/catalog/index";
-import Lessons from "../components/Lesson/LessonList/index";
+// import Lessons from "../components/Lesson/LessonList/index";
 import Course from "../components/Course/CourseList/index"
 import SignIn from "../components/sign/signIn/index"
+
+import LessonPage from "../pages/lesson-page/index";
 
 import ErrorRoutePages from "../components/ErrorRoutePages/index";
 import TeachingPage from '../pages/teaching-page/TeachingPage';
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
     },
     {
       path: "/:courseId/lessons",
-      element: <Lessons/> ,
+      element: <LessonPage/> ,
       errorElement: <ErrorRoutePages />
     },
     {

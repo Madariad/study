@@ -64,10 +64,10 @@ function Catalog() {
           <div className={classes.tab}>
             <Tab />
           </div>
-          <div className={classes.subject}>
+          {/* <div className={classes.subject}>
                <Kotoegry />
-             {/* <Subject />  */}
-          </div> 
+            
+          </div>  */}
           <div className={classes.subject}>
                
           <section data-purpose="teach-on-udemy" class="component-margin non-student-cta--non-student-cta-wrapper--2Nikm">
@@ -90,7 +90,7 @@ function Catalog() {
                   <div class="non-student-cta--non-student-cta__link--1Ujpk">
                   <Button variant="outlined" size="large">
     
-                       начните приподавать сегодня
+                       начните преподавать сегодня
                    </Button>
                     </div>
                     </div>

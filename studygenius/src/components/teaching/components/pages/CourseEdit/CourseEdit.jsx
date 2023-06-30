@@ -19,12 +19,13 @@ const CourseEdit =  () => {
     const form = document.querySelector('.course-images')
     const imgArea = document.querySelector('.img-area')
     const imgAreaImg = document.querySelector('.img-area__img')
-    console.log(form)
+    // console.log(form)
     const image = e.target.files[e.target.files.length - 1]
-    const formdata = new FormData(form)
-    console.log(e.target.files[e.target.files.length - 1].name)
-    const res = await axiosConfig.post(`/course/${params.id}/upload`, formdata)
-    console.log(res);
+    // const formdata = new FormData(form)
+    // console.log(formdata.getAll('video'));
+    // console.log(e.target.files[e.target.files.length - 1].name)
+    // const res = await axiosConfig.post(`/course/${params.id}/upload`, formdata)
+    // console.log(res);
     const reader = new FileReader()
     reader.onload = () => {
       const imgUrl = reader.result
@@ -89,6 +90,33 @@ const CourseEdit =  () => {
 
   const handleClick = async (e) => {
     e.preventDefault()
+
+    const form = document.querySelector('.course-images')
+    const formdata = new FormData(form)
+    const imageFormData =  new FormData()
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+    imageFormData.append('file', formdata.get('file'))
+    // console.log(formdata.get('file'));
+    // console.log(formdata.get('video'));
+
+    const imgss = await axiosConfig.post(`/course/${params.id}/upload`, imageFormData, config)
+    console.log(imgss);
+    const formData = new FormData();
+    formData.append('video', formdata.get('video'));
+    formData.append('id', params.id)
+    
+    
+    try {
+      const response = await axiosConfig.post(`/course/upload-video`, formData, config);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
     try {
       const data = await axiosConfig.put(`/course/${params.id}`, {
         "course_name": nameInput,
@@ -107,7 +135,7 @@ const CourseEdit =  () => {
       <form className="course-images">
         <div className="course-col">
           <div className="img-area">
-            <img className="img-area__img" width={300} src={`http://localhost:5000/api/v1/course/img/${img}`} alt="afsd" />
+            <img className="img-area__img" width={300} src={`http://localhost:5000/api/v1/course/img/${img}`} alt="photo" />
           </div>
           <Button
           variant="contained"
@@ -131,6 +159,7 @@ const CourseEdit =  () => {
           Загрузить Видео
           <input
             type="file"
+            name="video"
             hidden
             onChange={handleOnChangeVideo}
           />
