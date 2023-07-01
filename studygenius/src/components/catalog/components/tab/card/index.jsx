@@ -8,7 +8,7 @@ import axiosConfig from "../../../../../axiosConfig";
 
 
 
-export default function card({description, name, id, img}) {
+export default function card({btnTxtCourse, description, name, id, img}) {
   const courseList = useSelector((state) => state.course.courseList);
 
 
@@ -23,7 +23,7 @@ export default function card({description, name, id, img}) {
 
 
   const lessons = useSelector((state) => state.lessons.lessonsList)
-  console.log(lessons);
+  // console.log(lessons);
 
   return (
       <div className="main">
@@ -37,14 +37,14 @@ export default function card({description, name, id, img}) {
                 <h2 className="card_title">
                   {name}
                 </h2>
-                <p className="card_text">
+                <p className="card_text" sx={{maxWidth: '300px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'}}>
                   {description}
                 </p>
                 {/* <p className="card_price">
                   1999 ₸
                 </p> */}
                 <Link to={`/${id}/course`} style={{textDecoration: 'none'}}>
-                  <Box component='button' sx={(theme) => ({ backgroundColor: theme.palette.cardBtnColor.main })}  className="btn card_btn">Бесплатно</Box>
+                  <Box component='button' sx={(theme) => ({ backgroundColor: theme.palette.cardBtnColor.main })}  className="btn card_btn">{btnTxtCourse}</Box>
                 </Link>
               </Box>
             </div>

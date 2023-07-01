@@ -141,7 +141,7 @@ console.log(courseList)
         {!match ? 
            <div>
             <ListItem disablePadding>
-            <img src={courseList && courseList[0].course_image !== null ? `http://localhost:5000/api/v1/course/img/${courseList[0].course_image}` : "https://placehold.co/600x400/EEE/31343C"} width={150} style={{border: '1px solid', margin: 'auto'}}/>
+            <img src={courseList == [] && courseList[0].course_image !== null ? `http://localhost:5000/api/v1/course/img/${courseList[0].course_image}` : "https://placehold.co/600x400/EEE/31343C"} width={150} style={{border: '1px solid', margin: 'auto'}}/>
             </ListItem>
             <ListItem disablePadding>
             <p style={{ margin: 'auto'}}>{creatingNameFinished}</p>

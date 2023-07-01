@@ -43,40 +43,14 @@ function Courses() {
 
   return (
     <>
-      <Grid container spacing={2}>
-  {course !== null && course.length > 0 ? (
-    course.map((cours) => (
-      <Grid item xs={12} sm={6} md={4} key={cours.course_id}>
-         <div className="main">
-      <ul className="cards">
-          <li className="cards_item">
-            <div className="card">
-              <div className="card_image">
-              <img src={cours.course_image  === null ? "../../../../../public/img/react.png" :  `http://localhost:5000/api/v1/course/img/${cours.course_image}`}/>
-              </div>
-              <Box className="card_content" sx={{ backgroundColor: '#add6ff' }}>
-                <h2 className="card_title">
-                  {cours.course_name}
-                </h2>
-                <p className="card_text">
-                  {cours.course_description}
-                </p>
-                <Link to={`/${cours.course_id}/course`} style={{textDecoration: 'none'}}>
-                  <Box component='button' sx={{ backgroundColor: '#6c6' }}  className="btn card_btn">Продолжит</Box>
-                </Link>
-              </Box>
-            </div>
-          </li>
-      </ul>
-    </div>
-      </Grid>
-    ))
-  ) : (
-    <Grid item xs={12}>
-      <Typography variant="subtitle1">No courses available</Typography>
-    </Grid>
-  )}
-</Grid>
+<Grid container spacing={2}>
+                {course !== null ? course.map((cours) => ( 
+                    <Grid item xs={12} sm={6} md={4} key={cours.course_id}>
+                    <Card btnTxtCourse={'Продолжать'} description={cours.course_description} name={cours.course_name} id={cours.course_id} img={cours.course_image }/>         
+                    </Grid>)) : <Grid item xs={12}>
+                        <Typography variant="subtitle1">No courses available</Typography>
+                    </Grid>}
+            </Grid>
 
 
     </>

@@ -95,8 +95,6 @@ const UserController = {
   subscribeCourse(req, res){
       const token = req.headers.authorization;
       const {courseId} = req.params
-      console.log(token);
-      console.log(courseId);
       User.subscribeCourse(courseId, token,  (result) => {
         if (result.status === 'success') {
           res.status(result.statusCode)
@@ -117,6 +115,23 @@ const UserController = {
       if (result.status === 'success') {
         res.status(result.statusCode)
         res.json({status: result.status, message: result.message, subscribeCourses: result.subscribeCourses})
+          
+      }else {
+          res.status(result.statusCode)
+          res.json(
+            {status: result.status, 
+             message: result.message
+            })
+      }
+    }) 
+  },
+  chosenCourse(req, res){
+    const token = req.headers.authorization;
+    const {courseId} = req.params
+    User.chosenCourse(courseId, token,  (result) => {
+      if (result.status === 'success') {
+        res.status(result.statusCode)
+        res.json({status: result.status, message: result.message})
           
       }else {
           res.status(result.statusCode)

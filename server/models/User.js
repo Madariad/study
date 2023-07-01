@@ -325,7 +325,45 @@ async getSubscribeCourse(userId, callback){
       });
     }
 },
+async chosenCourse(courseId, token, callback){
+  try {
+    const tokens = token.split('Bearer ')[1];
+    const userId = await jwtHelpers.getUserId(tokens);
 
+
+    const userSql = 'SELECT chosen_course FROM users WHERE user_id = ?';
+    const chosenCourseSql = 'UPDATE users SET chosen_course = ? WHERE user_id = ?';
+
+    const userResult = await query(userSql, [userId[0].user_id]);
+
+
+
+    // Разбиваем текущий выбранный список курсов на массив чисел
+    const chosenCourseIds = userResult[0].chosen_course === null ? [] : userResult[0].chosen_course.split(',').map(Number);
+
+
+
+// Добавляем новый курс в список выбранных курсов, если его идентификатор еще не присутствует в списке
+if (!chosenCourseIds.includes(courseId)) {  
+  chosenCourseIds.push(courseId);
+}
+
+// Обновляем базу данных с обновленным списком подписанных курсов
+await query(chosenCourseSql, [chosenCourseIds.join(','), userId[0].user_id]);
+
+    callback({
+      status: 'success',
+      message: 'chosen',
+      statusCode: 200,
+    });
+  } catch (error) {
+    callback({
+      status: 'error',
+      message: error,
+      statusCode: 500,
+    });
+  }
+},
  async  getById(userId, callback) {
    try {
     const getByIdQuery = 'SELECT * FROM users WHERE user_id = ?';
@@ -428,6 +466,8 @@ async userData(token, callback){
    
    const subscribedCourses = res[0].subscribed_courses !== null ?  res[0].subscribed_courses.split(',').map(Number) : res[0].subscribed_courses;
 
+   const chosenCourse = res[0].chosen_course !== null ?  res[0].chosen_course.split(',').map(Number) : res[0].chosen_course;
+
   const data = {
     userId: res[0].user_id,
     username: res[0].username,
@@ -435,6 +475,7 @@ async userData(token, callback){
     email: res[0].email,
     avatar: res[0].avatar,
     subscribed_courses: subscribedCourses,
+    chosen_course: chosenCourse,
 
   }
   callback(

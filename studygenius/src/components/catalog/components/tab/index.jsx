@@ -155,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
             <Grid container spacing={2}>
                 {courseList !== null ? courseList.map((course) => ( 
     <Grid item xs={12} sm={6} md={4} key={course.course_id}>
-      <Card description={course.course_description} name={course.course_name} id={course.course_id} img={course.course_image }/>         
+      <Card btnTxtCourse={'Пройти'} description={course.course_description} name={course.course_name} id={course.course_id} img={course.course_image }/>         
     </Grid>)) : <div>Loading</div>}
             </Grid>
 

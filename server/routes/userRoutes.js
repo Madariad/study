@@ -40,7 +40,13 @@ router.get('/courses/all', UserController.getCourses)
 
 router.post('/subscribed/:courseId', UserController.subscribeCourse)
 
+
+
 router.get('/subscribed/:userId', UserController.getSubscribeCourse)
+
+router.post('/chosen/:courseId', UserController.chosenCourse)
+
+// router.get('/chosen/:courseId', UserController.chosenCourse)
 
 
 router.post('/avatar/upload', imageConfig.users.config(), imageConfig.users.upload);

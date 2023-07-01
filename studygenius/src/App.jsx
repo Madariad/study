@@ -48,11 +48,12 @@ function App() {
   const mode = useSelector((state) => state.theme.mode);
   const theme = mode === 'light' ? lightTheme : darkTheme;
   if (startsWith(router.state.location.pathname, '/education') ) {
-    return <EducationPage />;
+    return  <ThemeProvider theme={theme}>  <CssBaseline />  <EducationPage />  </ThemeProvider>
   }
   if (/^\/.+\/lessons/.test(router.state.location.pathname)) {
     console.log(router.state.location.pathname);
-    return <Lesson />;
+    return     <ThemeProvider theme={theme}> 
+    <CssBaseline /> <Lesson /> </ThemeProvider>
   }
   return (
     <ThemeProvider theme={theme}> 

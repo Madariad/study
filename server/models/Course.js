@@ -11,14 +11,15 @@ const Course = {
       const getRole = await jwtHelpers.getUserRole(token);
          if (getRole[0].role_name === 'teachers') {
                 const userId = await jwtHelpers.getUserId(token)
-                console.log(userId[0].user_id);
+                // console.log(userId);
       
               const InsertQuery = 'INSERT INTO Courses SET ?';
       
               const newCourse = 
               {
                 ...course,
-                course_creator_id: userId[0].user_id
+                course_creator_id: userId[0].user_id,
+                course_program_details: JSON.stringify(course.course_program_details)
       
               }
               await query(InsertQuery, [newCourse])
