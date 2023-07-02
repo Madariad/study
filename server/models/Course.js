@@ -51,8 +51,8 @@ const Course = {
   },
   async getLessons(courseId, callback){
     try {
-      console.log('ddddd');
-      const getLessonsFromCourseSql = 'SELECT * FROM courses LEFT JOIN lessons ON lessons.course_id = courses.course_id WHERE courses.course_id = ?';
+      // console.log('ddddd');
+      const getLessonsFromCourseSql = 'SELECT * FROM lessons  WHERE lessons.course_id = ?';
     const results = await query(getLessonsFromCourseSql, [courseId]);
     callback(
       {

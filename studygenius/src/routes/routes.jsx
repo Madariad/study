@@ -10,6 +10,7 @@ import LessonPage from "../pages/lesson-page/index";
 import ErrorRoutePages from "../components/ErrorRoutePages/index";
 import TeachingPage from '../pages/teaching-page/TeachingPage';
 import EducationPage from "../pages/education-page/index";
+import SubLesson from "../pages/lesson-page/sublesson/index";
 
 
 const router = createBrowserRouter([
@@ -31,16 +32,25 @@ const router = createBrowserRouter([
       errorElement: <ErrorRoutePages/>
     },
     {
-
       path: "/:courseId/course",
       element: <Course/> ,
       errorElement: <ErrorRoutePages/>,
     },
-    {
-      path: "/:courseId/lessons",
-      element: <LessonPage/> ,
-      errorElement: <ErrorRoutePages />
-    },
+    // {
+    //   path: "/:lessonId/sublessons",
+    //   element: <SubLesson /> ,
+    //   // errorElement: <ErrorRoutePages />
+    // },
+    // {
+    //   path: "/:lessonId/sublessons",
+    //   element: <SubLesson /> ,
+    //   // errorElement: <ErrorRoutePages />
+    // },  
+    // {
+    //   path: "/:courseId/lessons",
+    //   element: <LessonPage/> ,
+    //   errorElement: <ErrorRoutePages />
+    // },
     {
       path: "/signin",
       element: <SignIn/> ,

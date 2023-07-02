@@ -24,6 +24,7 @@ function CourseList() {
     const userData =  useSelector((state) => state.user.userData)
     let isCourseSubscribed = false;
     let [isCourseChosen, setIsCourseChosen] = useState(false);
+    const [cours, setCours] = useState([])
 
     if (userData.subscribed_courses !== null && Array.isArray(userData.subscribed_courses)) {
         
@@ -49,16 +50,29 @@ function CourseList() {
         }
       }, []);
       
+        const courseList = useSelector((state) =>  state.course.courseList)
+     useEffect(() => {
+      function getCourse() {
+        if (courseList !== null && Array.isArray(courseList)) {
+        
+          for (let i = 0; i < courseList.length; i++) {
+              const id = parseInt(courseId)
+              console.log(courseList[i]);
+              if (courseList[i].course_id === id) {
+                setCours(courseList[i])
+                break;
+              }
+            }
+      }
+      }
+      getCourse()
+     }, [dispath])
 
 
-        //нужно получить курс из глобального courseList
-        useEffect(() => {
-            dispath({type: 'GET_COURS', courseId: courseId})
-        }, [dispath, courseId])
-        const courseList = useSelector((state) => state.course.cours);
-        console.log(courseList)
+
+        // const courseList = useSelector((state) => state.course.cours);
         const [open, setOpen] = React.useState(true);
-        console.log(courseList);
+        console.log(cours);
   
     const handleClick = () => {
       setOpen(!open);
@@ -92,7 +106,7 @@ const navigate = useNavigate()
     }
     return (
         <div className="course">
-            {courseList !== null ? courseList.map((course, i) => (
+            {cours !== [] ? [cours].map((course, i) => (
             <>
             <div className="course_items">
             <Box className="course_container" sx={{padding: '0 20px'}}>

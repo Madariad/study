@@ -1,19 +1,21 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import LessonNavigate from "./navigate/index";
+import LessonNavigate from "./sublesson/navigate/index";
 import lessonRoutes from "../../routes/lessonRoutes";
 import { RouterProvider } from 'react-router-dom';
+import Grid from '@mui/material/Grid'
+import Container from '@mui/material/Container'
+
       
 
 function lesson() {
     return (
         <>
-           {/* <Box sx={{paddingTop: '158px'}}>
-           <Typography variant="h1" color="initial" >В разработке!!!</Typography>
-
-           </Box> */}
-           <LessonNavigate />
-           <RouterProvider router={lessonRoutes}/>
+        <Container maxWidth="lg">
+            <Box sx={{paddingTop: '20px'}}>
+                   <RouterProvider router={lessonRoutes}/>          
+            </Box>
+        </Container>
         </>
     )
 }

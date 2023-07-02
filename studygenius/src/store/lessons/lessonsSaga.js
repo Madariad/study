@@ -5,8 +5,9 @@ import { setLessonsList } from "./lessonsSlice";
 function* getLessons(action) {
   try {
     const {courseId} = action
+    // console.log('dd', courseId);
     const lessons = yield call(axiosConfig.get, `/course/${courseId}/lessons`);
-    // console.log('lessons: ', lessons); 
+    console.log('lessons: ', lessons); 
     yield put(setLessonsList({ lessons: lessons.data.lessons }));
   } catch (error) {
     console.log(error);

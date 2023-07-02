@@ -20,6 +20,7 @@ import SidebarRouter from './routes/SidebarRouter';
 import EducationPage from "./pages/education-page";
 import ErrorRoutePages from "./components/ErrorRoutePages/index";
 import Lesson from "./pages/lesson-page/index";
+import Sublesson from "./pages/lesson-page/sublesson/index";
 
 import { CreatingContext } from './context';
 import { useEffect } from 'react';
@@ -54,6 +55,11 @@ function App() {
     console.log(router.state.location.pathname);
     return     <ThemeProvider theme={theme}> 
     <CssBaseline /> <Lesson /> </ThemeProvider>
+  }
+  if (/^\/.+\/sublessons/.test(router.state.location.pathname)) {
+    console.log(router.state.location.pathname);
+    return     <ThemeProvider theme={theme}> 
+    <CssBaseline /> <Sublesson /> </ThemeProvider>
   }
   return (
     <ThemeProvider theme={theme}> 
